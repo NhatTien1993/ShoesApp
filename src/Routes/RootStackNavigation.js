@@ -7,7 +7,7 @@ import AddShoes from "../screen/AddShoes/AddShoes";
 import SearchShoes from "../screen/SearchShoes/SearchShoes";
 import CartShoes from "../screen/CartShoes/CartShoes";
 import DetailShoes from "../screen/DetailShoes/DetailShoes";
-import User from "../screen/User/User";
+import User from "../screen/User/User";
 import AllShoes from "../screen/AllShoes/AllShoes";
 import { Image, View, TouchableOpacity } from "react-native";
 
