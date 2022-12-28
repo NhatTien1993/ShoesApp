@@ -2,7 +2,7 @@ import { View, Text, FlatList, TouchableOpacity, Image } from 'react-native'
 import React,{memo} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setRelateShoes } from '../../../redux/ReduxSlice'
-import { ICONS, COLORS, STYLES } from '../../../common/Constant'
+import { ICONS, COLORS, STYLES,SIZES } from '../../../common/Constant'
 
 
 export default memo(function Menu() {
@@ -22,7 +22,7 @@ export default memo(function Menu() {
             <View
                 onMoveShouldSetResponder={() => { getRelateShoes(item.relatedProducts) }}
                 style={{
-                    backgroundColor: 'white', width: 300, padding: 10, borderRadius: 15, marginVertical: 20, marginHorizontal: 15, ...STYLES.shadow
+                    backgroundColor: 'white', width:SIZES.width(70), padding: 10, borderRadius: 15, marginVertical: 20, marginHorizontal: 15, ...STYLES.shadow
                 }}>
                 <TouchableOpacity
                     style={{ width: 50, alignSelf: 'flex-end', justifyContent: 'flex-start', padding: 20, marginTop: -10 }}
@@ -39,8 +39,8 @@ export default memo(function Menu() {
                 </TouchableOpacity>
                 <Image
                     style={{
-                        width: 200,
-                        height: 130,
+                        width: SIZES.width(55),
+                        height: SIZES.height(15),
                         justifyContent: 'center',
                         alignSelf: 'center',
                         transform: [{ rotateY: '180deg' }]
@@ -49,7 +49,7 @@ export default memo(function Menu() {
                     source={{
                         uri: item.image
                     }} />
-                <View style={{ minHeight: 85 }}>
+                <View style={{ minHeight: SIZES.height(11) }}>
                     <Text style={{ fontSize: 32, fontWeight: 'bold', paddingBottom: 3, color: COLORS.dark, paddingLeft: 10 }}>{item.name}</Text>
                 </View>
                 <Text style={{ fontSize: 16, paddingBottom: 3, textTransform: 'capitalize', paddingLeft: 10 }}>{(categorySelected + '\'s Running')}</Text>
@@ -57,7 +57,7 @@ export default memo(function Menu() {
             </View>
         )
     }
-    console.log('list shoes')
+    console.log(SIZES.width(10))
     return (
         <View>
             <FlatList

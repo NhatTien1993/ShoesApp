@@ -6,8 +6,14 @@ export const SIZES = {
     padding:10,
     padding12:12,
     radius: 30,
-    width,
-    height
+    width(x){
+        let a= (x*width)/100
+        return a
+    },
+    height(y){
+        let a= (y*height)/100
+        return a
+    }
 }
 export const KEY_TOKEN = {
     token:'keyToken',

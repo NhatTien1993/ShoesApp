@@ -10,6 +10,7 @@ import {configureStore} from '@reduxjs/toolkit'
 import reduxShoesApp from './src/redux/ReduxSlice'
 export const store = configureStore({
     reducer: {
-        redux:reduxShoesApp
+              redux:reduxShoesApp
+
     }
   })
