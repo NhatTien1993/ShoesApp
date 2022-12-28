@@ -1,6 +1,6 @@
 import { View, Text, Image, TouchableOpacity, FlatList } from 'react-native'
 import React from 'react'
-import { COLORS, ICONS, STYLES,KEY_SCREEN } from '../../../common/Constant'
+import { COLORS, ICONS, STYLES,KEY_SCREEN, SIZES } from '../../../common/Constant'
 import {  useSelector } from 'react-redux'
 import { memo } from 'react'
 import { useNavigation } from '@react-navigation/native'
@@ -10,11 +10,10 @@ export default memo(function RelateShoes() {
     const relateShoesData = useSelector((state) => state.redux.relateShoes)
     const renderItemShoes = ({ item }) => (
         <View
-
-            style={{ backgroundColor: COLORS.white, width: 90, justifyContent: 'center', alignItems: 'center', paddingVertical: 10, marginRight: 15, borderRadius: 10, ...STYLES.shadow }}>
+            style={{ backgroundColor: COLORS.white, width: SIZES.width(25),flex:1, justifyContent: 'center', alignItems: 'center', paddingVertical: 10, marginRight: 15, borderRadius: 10, ...STYLES.shadow }}>
             <Image
                 resizeMode='cover'
-                style={{ width: 80, height: 60, transform: [{ rotateY: '180deg' }] }}
+                style={{ width: SIZES.width(20), height: SIZES.height(9), transform: [{ rotateY: '180deg' }] }}
                 source={{ uri: item.image }} />
 
         </View>
