@@ -1,18 +1,32 @@
-import { View, Text, TouchableOpacity} from 'react-native'
+import { View, Text, TouchableOpacity, Image, ImageBackground, StyleSheet, ScreenContainer} from 'react-native'
 import React from 'react'
-
+/**
+ * Create Profile:
+ * @returns NguyentruongKhoiNguyen
+ */
 export default function User() {
     return (
         <View>
+            <Text>Athletic Shose</Text>
+            <Text>App Description</Text>
             <TouchableOpacity>
-                <Text>Cập nhật profile</Text>
+                <Text>@twitter</Text>
             </TouchableOpacity>
             <TouchableOpacity>
-                <Text>Đổi mật khẩu</Text>
+                <Text>Website</Text>
             </TouchableOpacity>
+
+
             <TouchableOpacity>
-                <Text>Đăng xuất</Text>
+                <Text>Terms & Conditions</Text>
             </TouchableOpacity>
+
+            <TouchableOpacity>
+                <Text>Privacy Policy</Text>
+            </TouchableOpacity>     
+                        
+              <Text>Version 1.01</Text>
         </View>
-    )
+    );
 }
+const styles = StyleSheet.create({})
