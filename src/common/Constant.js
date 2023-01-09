@@ -28,9 +28,6 @@ export const COLORS = {
     white:'#fff'
 }
 export const KEY_SCREEN = {
-    login:'Login',
-    profile: 'profile',
-    homeShoes:'HomeShoes',
     // Shoes app
     homePage:'HomePage',
     searchShoes:'SearchShoes',
@@ -40,7 +37,9 @@ export const KEY_SCREEN = {
     tabHome:'TabHome',
     detailShoes:'DetailShoes',
     allShoes:'AllShoes',
-    filterShoes:'FilterShoes'
+    filterShoes:'FilterShoes',
+    signIn: 'signIn',
+    signUp:'signUp'
    
 }
 export const ICONS = {
@@ -58,10 +57,18 @@ export const ICONS = {
     iconCart: require('../../assets/icons/cart.png'),
     iconUser: require('../../assets/icons/user.png'),
     iconArrowRight: require('../../assets/icons/arrowRight.png'),
+    iconTerms: require('../../assets/icons/terms.png'),
+    iconPolicy: require('../../assets/icons/policy.png'),
+    iconArrowForward: require('../../assets/icons/icon_arrow_forward.png'),
 
 }
 export const IMAGES = {
-    
+    //SignIn
+    signInLogo: require('../../assets/SignIn.png'),
+    //SignUp:
+    signUpLogo: require('../../assets/SignUp.jpg'),
+    //Logo:
+    adidasLogo: require('../../assets/Adidas_Logo.jpg')
 }
 export const STYLES = {
     shadow: {

@@ -9,7 +9,8 @@ import { KEY_SCREEN } from './src/common/Constant';
 
 import HomePage from './src/screen/HomePage/HomePage';
 import { RootStackNavigator } from './src/Routes/RootStackNavigation';
-import Login from './src/screen/LoginandSignUp/Login';
+import SignIn from './src/screen/LoginandSignUp/SignIn';
+import SignUp from './src/screen/LoginandSignUp/SignUp';
 
 
 export default function App() {
@@ -28,9 +29,10 @@ export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-      <RootStackNavigator />
+        <RootStackNavigator />
       </NavigationContainer>
-      {/* <Login/> */}
+      {/* <SignIn/>  */}
+      {/* <SignUp/> */}
     </Provider>
   )
 }

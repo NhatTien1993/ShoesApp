@@ -1,29 +1,36 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, {useState, createRef} from 'react'
+import React, {useState} from 'react'
 import {
     StyleSheet,
     TextInput,
     View,
     Text,
-    ScrollView,
     Image,
     Keyboard,
     TouchableOpacity,
-    KeyboardAvoidingView,
 } from 'react-native';
+import { IMAGES, KEY_SCREEN, SIZES } from '../../common/Constant';
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { Signin } from '../../redux/ReduxThunk';
 
-const Login = ({navigation}) => {
-    //UseState:
-    const [userEmail, setUserEmail] = useState('');
-    const [userPassword, setUserPassword] = useState('');
+const SignIn = () => {
+    //Navigation Hook:
+    const navigation = useNavigation ();
+    //Dispatch:
+    const dispatch = useDispatch()
+    //Tạo hàm SignIn:
+    const signin = (data)=>{
+      dispatch(Signin(data)) 
+    }
+    //View:
     return (
         <View style={styles.mainBody}>
             <View>
               <View>
-                {/* Login */}
+                {/* SignIn Logo */}
                 <View style={{alignItems: 'center'}}>
                   <Image
-                    source={require('../../../assets/Login.jpg')}
+                    source={IMAGES.signInLogo}
                     style={{
                       width: '50%',
                       height: 100,
@@ -32,32 +39,23 @@ const Login = ({navigation}) => {
                     }}
                   />
                 </View>
-                {/* TextField: Email & Password */}
+                {/* TextField: Email*/}
                 <View style={styles.SectionStyle}>
                   <TextInput
                     style={styles.inputStyle}
-                    onChangeText={(UserEmail) =>
-                      setUserEmail(UserEmail)
-                    }
                     placeholder="Enter Email"
                     placeholderTextColor="#8b9cb5"
                     autoCapitalize="none"
                     keyboardType="email-address"
                     returnKeyType="next"
-                    onSubmitEditing={() =>
-                      passwordInputRef.current &&
-                      passwordInputRef.current.focus()
-                    }
                     underlineColorAndroid="#f000"
                     blurOnSubmit={false}
                   />
                 </View>
+                {/* TextField: Password */}
                 <View style={styles.SectionStyle}>
                   <TextInput
                     style={styles.inputStyle}
-                    onChangeText={(UserPassword) =>
-                      setUserPassword(UserPassword)
-                    }
                     placeholder="Enter Password" //12345
                     placeholderTextColor="#8b9cb5"
                     keyboardType="default"
@@ -68,16 +66,17 @@ const Login = ({navigation}) => {
                     returnKeyType="next"
                   />
                 </View>
-                {/* Button Login */}
+                {/* Button SignIn */}
                 <TouchableOpacity
                   style={styles.buttonStyle}
-                  activeOpacity={0.5}>
-                  <Text style={styles.buttonTextStyle}>LOGIN</Text>
+                  activeOpacity={0.5} 
+                  onPress={signin}>
+                  <Text style={styles.buttonTextStyle}>SIGN IN</Text>
                 </TouchableOpacity>
                 <Text
                   style={styles.registerTextStyle}
-                  onPress={() => navigation.navigate('Register')}>
-                  New Here ? Register
+                  onPress={() => navigation.navigate(KEY_SCREEN.signUp)}>
+                  New Here ? Sign Up
                 </Text>
               </View>
             </View>
@@ -85,7 +84,7 @@ const Login = ({navigation}) => {
     );
 }
 
-export default Login
+export default SignIn;
 
 const styles = StyleSheet.create({
     mainBody: {
@@ -96,7 +95,8 @@ const styles = StyleSheet.create({
     },
     SectionStyle: {
       flexDirection: 'row',
-      height: 40,
+      //SIZE.height(%)
+      height: SIZES.height(8),
       marginTop: 20,
       marginLeft: 35,
       marginRight: 35,
