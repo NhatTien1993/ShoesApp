@@ -24,6 +24,9 @@ const homePageSlice= createSlice({
         setRelateShoes: (state,action)=> {
             state.relateShoes = action.payload
         },
+        setResetAccessToken: (state,action)=> {
+            state.accessToken = action.payload
+        },
         
     },
     extraReducers: builder => {
@@ -46,7 +49,11 @@ const homePageSlice= createSlice({
             //Đã lấy được data-> isLoading cập nhật lại:
             state.isLoadding = false;
             //Tạm thời console.log action ra:
-            console.log(action.payload);
+            if(action.payload === undefined){
+                state.accessToken =1
+            }else{
+                state.accessToken= action.payload
+            }
             //-------------------------- SignUp --------------------------//
         }).addCase(Signup.pending,(state,action)=>{
             //Update State lại:
@@ -57,9 +64,8 @@ const homePageSlice= createSlice({
             state.isLoadding = false;
             //Tạm thời console.log action ra:
             console.log(action.payload);
-            
         })
     }
 })
-export const {setCategorySelected,setRelateShoes} =homePageSlice.actions
+export const {setCategorySelected,setRelateShoes, setResetAccessToken} =homePageSlice.actions
 export default homePageSlice.reducer

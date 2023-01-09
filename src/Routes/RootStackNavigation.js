@@ -158,10 +158,16 @@ const TabBarNavigator = () => (
 
 const RootStackNavigator = () => (
     <Stack.Navigator
+        initialRouteName={KEY_SCREEN.signIn}
         screenOptions={{
             headerShown: false,
             tabBarShowLabel: false,
         }}>
+        {/* SignIn */}
+        <Stack.Screen
+            name={KEY_SCREEN.signIn}
+            component={SignIn}
+        />
         <Stack.Screen
             name={KEY_SCREEN.tabHome}
             component={TabBarNavigator}
@@ -175,14 +181,9 @@ const RootStackNavigator = () => (
             component={AllShoes}
         />
         {/* SignUp */}
-        {/* <Stack.Screen
+        <Stack.Screen
             name={KEY_SCREEN.signUp}
             component={SignUp}
-        /> */}
-        {/* SignIn */}
-        <Stack.Screen
-            name={KEY_SCREEN.signIn}
-            component={SignIn}
         />
     </Stack.Navigator>
 )

@@ -10,18 +10,44 @@ import {
 } from 'react-native';
 import { IMAGES, KEY_SCREEN, SIZES } from '../../common/Constant';
 import { useNavigation } from '@react-navigation/native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Signin } from '../../redux/ReduxThunk';
+import { setResetAccessToken } from '../../redux/ReduxSlice';
+import { useEffect } from 'react';
 
 const SignIn = () => {
+    //Set state:
+    const [statePassword, setStatePassword] = useState('');
+    const [stateEmail, setStateEmail] = useState('');
     //Navigation Hook:
     const navigation = useNavigation ();
     //Dispatch:
     const dispatch = useDispatch()
+    //Cach lay tu Redux:
+    const accessToken=  useSelector((state) => state.redux.accessToken)
+    useEffect(() => {
+      console.log(accessToken)
+      if(accessToken ===1){
+        alert('Tài khoản hoặc mật khẩu bị sai, vui  lòng nhập lại')
+      }else if(accessToken !== 0){
+        //Khong thuc hien gi het
+        setStateEmail('')
+        setStatePassword('')
+        navigation.navigate(KEY_SCREEN.tabHome)
+      }
+    },[accessToken])
     //Tạo hàm SignIn:
-    const signin = (data)=>{
-      dispatch(Signin(data)) 
+    const signin = ()=>{
+      const data = {
+        email: stateEmail,
+        password: statePassword,
+      }
+      dispatch(Signin(data))
+      console.log(accessToken)
     }
+  
+    console.log(stateEmail)
+    console.log(statePassword)
     //View:
     return (
         <View style={styles.mainBody}>
@@ -50,6 +76,8 @@ const SignIn = () => {
                     returnKeyType="next"
                     underlineColorAndroid="#f000"
                     blurOnSubmit={false}
+                    value={stateEmail}
+                    onChangeText={(value)=> setStateEmail(value)}
                   />
                 </View>
                 {/* TextField: Password */}
@@ -64,6 +92,8 @@ const SignIn = () => {
                     secureTextEntry={true}
                     underlineColorAndroid="#f000"
                     returnKeyType="next"
+                    value= {statePassword}
+                    onChangeText={(value)=> setStatePassword(value)}
                   />
                 </View>
                 {/* Button SignIn */}
@@ -122,7 +152,7 @@ const styles = StyleSheet.create({
     },
     inputStyle: {
       flex: 1,
-      color: 'white',
+      color: 'black',
       paddingLeft: 15,
       paddingRight: 15,
       borderWidth: 1,

@@ -2,12 +2,21 @@ import { View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { COLORS, ICONS, KEY_SCREEN, IMAGES } from '../../common/Constant';
+import { useDispatch } from 'react-redux';
+import { setResetAccessToken } from '../../redux/ReduxSlice';
 /**
  * Create Profile:
  * @returns NguyentruongKhoiNguyen
  */
 
 export default function User() {
+    const dispatch = useDispatch()
+    const navigation = useNavigation();
+    const signOut =( )=>{
+        dispatch(setResetAccessToken(0))
+        //Chuyen Trang:
+        navigation.navigate(KEY_SCREEN.signIn)
+    }
     return (
         <View style={styles.container}>
             {/* Title & Description */}
@@ -43,7 +52,8 @@ export default function User() {
                         
               <Text style={styles.version}>Version 1.01</Text>
               {/* Sign out */}
-            <TouchableOpacity style={styles.buttonStyle}>
+            <TouchableOpacity style={styles.buttonStyle} 
+                onPress= {signOut}>
                 <Text style={styles.buttonTextStyle}>Sign Out</Text>
             </TouchableOpacity>
         </View>
