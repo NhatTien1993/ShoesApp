@@ -1,7 +1,9 @@
 import { View, Image, TouchableOpacity, StyleSheet } from 'react-native'
 import React, { memo } from 'react'
-import { ICONS } from '../../../common/Constant'
+import { ICONS,KEY_SCREEN } from '../../../common/Constant'
 import { useNavigation } from '@react-navigation/native'
+import Utils from '../../../../app/Utils'
+
 export default memo(function Appbar() {
   const navigation=useNavigation()
   return (
@@ -9,7 +11,7 @@ export default memo(function Appbar() {
       <TouchableOpacity onPress={()=>{navigation.goBack()}}>
         <Image style={[styles.icon, { tintColor: 'white' }]} source={ICONS.icClose} resizeMode='contain' />
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => { Utils.showToast('Xin lỗi! Chức năng chưa phát triển.', ICONS.iconUpdate, 2000, 'error') }}>
         <Image style={[styles.icon, { tintColor: 'white' }]} source={ICONS.icTune} resizeMode='contain' />
       </TouchableOpacity>
     </View>

@@ -1,8 +1,9 @@
 import { View, Text, FlatList, TouchableOpacity } from 'react-native'
 import React,{useEffect,memo} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getCategory, getProductByCategory, getProductFavorite,  } from '../../../redux/ReduxThunk'
-import { setCategorySelected } from '../../../redux/ReduxSlice'
+import { getCategory, getProductByCategory } from '../../../redux/ReduxThunk'
+import { setCategorySelected} from '../../../redux/ReduxSlice'
+
 
 export default memo(function Menu() {
     const categoryData = useSelector((state) => state.redux.categoryData)
@@ -10,14 +11,12 @@ export default memo(function Menu() {
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getCategory())
-        dispatch(getProductByCategory('ADIDAS'))
-        dispatch(getProductFavorite())
+        dispatch(getProductByCategory())
     }, [])
     // console.log(categoryData)
     const _setCategory = (id) => {
         dispatch(setCategorySelected(id))
         dispatch(getProductByCategory(id))
-        dispatch(getProductFavorite())
     }
     const renderItemCategory = ({ item }) => {
         return <TouchableOpacity
@@ -26,7 +25,6 @@ export default memo(function Menu() {
             <Text style={{ color: categorySelected == item.id ? 'white' : '#666', fontSize: 20, fontWeight: 'bold',textTransform:'capitalize' }}>{item.category+ ' SHOES'}</Text>
         </TouchableOpacity>
     }
-    // console.log('menu')
     return (
         <View>
             <FlatList
