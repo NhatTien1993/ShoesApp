@@ -9,6 +9,9 @@ import CartShoes from "../screen/CartShoes/CartShoes";
 import DetailShoes from "../screen/DetailShoes/DetailShoes";
 import User from "../screen/User/User"
 import AllShoes from "../screen/AllShoes/AllShoes";
+import FilterShoes from '../screen/FilterShoes/FilterShoes'
+import AlertMessage from "../screen/FlashScreen/AlertMessage";
+import FlashMessage from "../screen/FlashScreen/FlashMessage";
 import { Image, View, TouchableOpacity } from "react-native";
 import SignUp from "../screen/LoginandSignUp/SignUp";
 import SignIn from "../screen/LoginandSignUp/SignIn";
@@ -16,6 +19,13 @@ import SignIn from "../screen/LoginandSignUp/SignIn";
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
 
+const config = {
+    animation: 'timing',
+    config: {
+        duration: 2000,
+        easing: 2000
+    },
+};
 
 const TabBarNavigator = () => (
     <Tab.Navigator
@@ -173,8 +183,30 @@ const RootStackNavigator = () => (
             component={TabBarNavigator}
         />
         <Stack.Screen
-            name={KEY_SCREEN.detailShoes}
-            component={DetailShoes}
+            name={KEY_SCREEN.flashMessage}
+            component={FlashMessage}
+            options={{
+                presentation: 'transparentModal',
+                transitionSpec: {
+                    open: config,
+                    close: config,
+                },
+                gestureDirection: 'vertical'
+
+            }}
+        />
+        <Stack.Screen
+            name={KEY_SCREEN.alertMessage}
+            component={AlertMessage}
+            options={{
+                presentation: 'transparentModal',
+                transitionSpec: {
+                    open: config,
+                    close: config,
+                },
+                gestureDirection: 'vertical'
+
+            }}
         />
         <Stack.Screen
             name={KEY_SCREEN.allShoes}
@@ -184,6 +216,23 @@ const RootStackNavigator = () => (
         <Stack.Screen
             name={KEY_SCREEN.signUp}
             component={SignUp}
+        />
+        <Stack.Screen
+            name={KEY_SCREEN.detailShoes}
+            component={DetailShoes}
+        />
+        <Stack.Screen
+            name={KEY_SCREEN.filterShoes}
+            component={FilterShoes}
+            options={{
+                presentation: 'transparentModal',
+                transitionSpec: {
+                    open: config,
+                    close: config,
+                },
+                gestureDirection: 'vertical'
+
+            }}
         />
     </Stack.Navigator>
 )
