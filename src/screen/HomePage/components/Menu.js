@@ -7,17 +7,19 @@ import { setCategorySelected } from '../../../redux/ReduxSlice'
 export default memo(function Menu() {
     const categoryData = useSelector((state) => state.redux.categoryData)
     const categorySelected = useSelector((state) => state.redux.categorySelected)
+    const accessToken = useSelector((state) => state.redux.accessToken)
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getCategory())
         dispatch(getProductByCategory('ADIDAS'))
-        dispatch(getProductFavorite())
     }, [])
+    useEffect(() => {
+        dispatch(getProductFavorite(accessToken))
+    }, [accessToken])
     // console.log(categoryData)
     const _setCategory = (id) => {
         dispatch(setCategorySelected(id))
         dispatch(getProductByCategory(id))
-        dispatch(getProductFavorite())
     }
     const renderItemCategory = ({ item }) => {
         return <TouchableOpacity

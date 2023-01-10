@@ -7,12 +7,14 @@ import AddShoes from "../screen/AddShoes/AddShoes";
 import SearchShoes from "../screen/SearchShoes/SearchShoes";
 import CartShoes from "../screen/CartShoes/CartShoes";
 import DetailShoes from "../screen/DetailShoes/DetailShoes";
-import User from "../screen/User/User";
+import User from "../screen/User/User"
 import AllShoes from "../screen/AllShoes/AllShoes";
 import FilterShoes from '../screen/FilterShoes/FilterShoes'
 import AlertMessage from "../screen/FlashScreen/AlertMessage";
 import FlashMessage from "../screen/FlashScreen/FlashMessage";
 import { Image, View, TouchableOpacity } from "react-native";
+import SignUp from "../screen/LoginandSignUp/SignUp";
+import SignIn from "../screen/LoginandSignUp/SignIn";
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -166,10 +168,16 @@ const TabBarNavigator = () => (
 
 const RootStackNavigator = () => (
     <Stack.Navigator
+        initialRouteName={KEY_SCREEN.signIn}
         screenOptions={{
             headerShown: false,
             tabBarShowLabel: false,
         }}>
+        {/* SignIn */}
+        <Stack.Screen
+            name={KEY_SCREEN.signIn}
+            component={SignIn}
+        />
         <Stack.Screen
             name={KEY_SCREEN.tabHome}
             component={TabBarNavigator}
@@ -204,6 +212,11 @@ const RootStackNavigator = () => (
             name={KEY_SCREEN.allShoes}
             component={AllShoes}
         />
+        {/* SignUp */}
+        <Stack.Screen
+            name={KEY_SCREEN.signUp}
+            component={SignUp}
+        />
         <Stack.Screen
             name={KEY_SCREEN.detailShoes}
             component={DetailShoes}
@@ -221,7 +234,6 @@ const RootStackNavigator = () => (
 
             }}
         />
-
     </Stack.Navigator>
 )
 export { RootStackNavigator }

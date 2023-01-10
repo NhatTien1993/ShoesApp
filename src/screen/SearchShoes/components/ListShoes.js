@@ -11,6 +11,7 @@ const ListShoes = () => {
     const dispatch = useDispatch()
     const searchValue = useSelector((state) => state.redux.search)
     const idProductFavorite = useSelector((state) => state.redux.idProductFavorite)
+    const accessToken = useSelector((state) => state.redux.accessToken)
     const allShoesData= useSelector((state) => state.redux.allShoes)
     const like = useSelector((state) => state.redux.isLike)
     const unlike = useSelector((state) => state.redux.isUnLike)
@@ -22,14 +23,14 @@ const ListShoes = () => {
         navigation.navigate(KEY_SCREEN.detailShoes)
     }
     useEffect(() => {
-        dispatch(getProductFavorite())
+        dispatch(getProductFavorite(accessToken))
     }, [like, unlike])
     const pressLike = (id) => {
         const isLike = idProductFavorite.includes(id)
         if (isLike) {
-            dispatch(unlikeProduct(id))
+            dispatch(unlikeProduct({id,accessToken}))
         } else {
-            dispatch(likeProduct(id))
+            dispatch(likeProduct({id,accessToken}))
         }
     }
     const ItemShoes = ({ item }) => {

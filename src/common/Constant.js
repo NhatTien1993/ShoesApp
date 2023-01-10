@@ -41,7 +41,7 @@ export const COLORS = {
     orangeBlur:'rgba(227,81,59,0.2)',
 }
 export const KEY_SCREEN = {
-    
+
     // Shoes app
     homePage:'HomePage',
     searchShoes:'SearchShoes',
@@ -52,8 +52,11 @@ export const KEY_SCREEN = {
     detailShoes:'DetailShoes',
     allShoes:'AllShoes',
     filterShoes:'FilterShoes',
+    signIn: 'signIn',
+    signUp:'signUp',
     alertMessage:'AlertMessage',
     flashMessage:'FlashMessage'
+
    
 }
 export const ICONS = {
@@ -71,6 +74,9 @@ export const ICONS = {
     iconCart: require('../../assets/icons/cart.png'),
     iconUser: require('../../assets/icons/user.png'),
     iconArrowRight: require('../../assets/icons/arrowRight.png'),
+    iconTerms: require('../../assets/icons/terms.png'),
+    iconPolicy: require('../../assets/icons/policy.png'),
+    iconArrowForward: require('../../assets/icons/icon_arrow_forward.png'),
     iconMenu: require('../../assets/icons/icMenu.png'),
     iconMenu1: require('../../assets/icons/more_horiz.png'),
     iconStar: require('../../assets/icons/star.png'),
@@ -80,10 +86,16 @@ export const ICONS = {
     iconCheck: require('../../assets/icons/icCheck.png'),
     iconCartCheckout: require('../../assets/icons/icCartCheckout.png'),
     iconUpdate: require('../../assets/icons/icUpdate.png'),
-
 }
+
 export const IMAGES = {
-    avatar: require('../../assets/images/avatar.jpeg')
+    avatar: require('../../assets/images/avatar.jpeg'),
+        //SignIn
+    signInLogo: require('../../assets/SignIn.png'),
+    //SignUp:
+    signUpLogo: require('../../assets/SignUp.jpg'),
+    //Logo:
+    adidasLogo: require('../../assets/Adidas_Logo.jpg')
 }
 export const STYLES = {
     shadow: {
