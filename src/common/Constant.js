@@ -1,6 +1,13 @@
 
+import { useNavigation } from '@react-navigation/native'
 import {Dimensions} from 'react-native'
+import FlashMessage from '../screen/FlashScreen/FlashMessage'
 const {width,height} = Dimensions.get('window')
+// export const getFlashMessage = (title='Checked!',icon=ICONS.iconCheck,time=1000,action=()=>{})=> {
+//     const props = {title,icon,time,action}
+//     const navigation=useNavigation()
+//     navigation.navigate(KEY_SCREEN.flashMessage,{...props})
+// }
 
 export const SIZES = {
     padding:10,
@@ -17,20 +24,24 @@ export const SIZES = {
 }
 export const KEY_TOKEN = {
     token:'keyToken',
-    category:'category',
-    profile: 'profileData'
+    myCart:'myCart'
 }
 export const COLORS = {
     primary : 'rgb(52,52,52)',
-    secondary:'rgb(17,16,20',
+    primaryBlur : 'rgba(230,230,230,0.9)',
+    secondaryBlur : 'rgba(0,0,0,0.7)',
+    secondary:'rgb(17,16,20)',
     bcground: 'rgb(242,242,242)',
     dark:'black',
-    white:'#fff'
+    darkLight:'#aaa',
+    white:'#fff',
+    greylight:'#ccc',
+    redLike:'red',
+    orange:'rgb(227,81,59)',
+    orangeBlur:'rgba(227,81,59,0.2)',
 }
 export const KEY_SCREEN = {
-    login:'Login',
-    profile: 'profile',
-    homeShoes:'HomeShoes',
+    
     // Shoes app
     homePage:'HomePage',
     searchShoes:'SearchShoes',
@@ -40,7 +51,9 @@ export const KEY_SCREEN = {
     tabHome:'TabHome',
     detailShoes:'DetailShoes',
     allShoes:'AllShoes',
-    filterShoes:'FilterShoes'
+    filterShoes:'FilterShoes',
+    alertMessage:'AlertMessage',
+    flashMessage:'FlashMessage'
    
 }
 export const ICONS = {
@@ -58,10 +71,19 @@ export const ICONS = {
     iconCart: require('../../assets/icons/cart.png'),
     iconUser: require('../../assets/icons/user.png'),
     iconArrowRight: require('../../assets/icons/arrowRight.png'),
+    iconMenu: require('../../assets/icons/icMenu.png'),
+    iconMenu1: require('../../assets/icons/more_horiz.png'),
+    iconStar: require('../../assets/icons/star.png'),
+    iconHalfStar: require('../../assets/icons/halfStar.png'),
+    iconMinus: require('../../assets/icons/icMinus.png'),
+    iconDelete: require('../../assets/icons/icDelete.png'),
+    iconCheck: require('../../assets/icons/icCheck.png'),
+    iconCartCheckout: require('../../assets/icons/icCartCheckout.png'),
+    iconUpdate: require('../../assets/icons/icUpdate.png'),
 
 }
 export const IMAGES = {
-    
+    avatar: require('../../assets/images/avatar.jpeg')
 }
 export const STYLES = {
     shadow: {

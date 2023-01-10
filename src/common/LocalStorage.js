@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const storage = new Storage({
     size: 10,
     storageBackend: AsyncStorage,
-    defaultExpires: 1000 * 3600 * 8, // 8 hours
+    defaultExpires: 1000 * 3600 * 24 * 7, // 7 days
     enableCache: false
 })
 
@@ -24,10 +24,10 @@ export const getStorage = async (keyName) => {
             syncInBackground: true,
         })
         return data
-    }catch(error){
+    } catch (error) {
         return ""
     }
-    
+
 
 }
 export const removeStorage = (keyName) => {

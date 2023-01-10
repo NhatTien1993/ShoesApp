@@ -1,10 +1,13 @@
 import { View, Text } from 'react-native'
 import React from 'react'
-
+import AppBar from './components/AppBar'
+import MyCart from './components/MyCart'
+import { COLORS } from '../../common/Constant'
 export default function CartShoes() {
   return (
-    <View>
-      <Text>CartShoes code ở đây</Text>
+    <View style={{flex:1,backgroundColor:COLORS.bcground}}>
+      <AppBar/>
+      <MyCart/>
     </View>
   )
 }
