@@ -11,12 +11,13 @@ export default memo(function ListShoes() {
     const shoesData = useSelector((state) => state.redux.shoesData)
     const categorySelected = useSelector((state) => state.redux.categorySelected)
     const idProductFavorite = useSelector((state) => state.redux.idProductFavorite)
+    const accessToken = useSelector((state) => state.redux.accessToken)
     const like = useSelector((state) => state.redux.isLike)
     const unlike = useSelector((state) => state.redux.isUnLike)
     const navigation = useNavigation()
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(getProductById(1))
+        dispatch(getProductById(1))      
     }, [])
     const getRelateShoes = (products) => {
         dispatch(setRelateShoes(products))
@@ -27,15 +28,15 @@ export default memo(function ListShoes() {
         navigation.navigate(KEY_SCREEN.detailShoes)
     }
     useEffect(() => {
-        dispatch(getProductFavorite())
+        dispatch(getProductFavorite(accessToken))
     }, [like, unlike])
     const pressLike = (id) => {
         console.log(id)
         const isLike = idProductFavorite.includes(id)
         if (isLike) {
-            dispatch(unlikeProduct(id))
+            dispatch(unlikeProduct({id,accessToken}))
         } else {
-            dispatch(likeProduct(id))
+            dispatch(likeProduct({id,accessToken}))
         }
     }
     const renderItemShoes = ({ item }) => {
@@ -82,7 +83,7 @@ export default memo(function ListShoes() {
 
         )
     }
-    console.log('render HomePage')
+    // console.log('render HomePage')
     return (
         <View>
             <FlatList

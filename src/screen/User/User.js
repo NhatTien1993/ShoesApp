@@ -13,7 +13,7 @@ export default function User() {
     const dispatch = useDispatch()
     const navigation = useNavigation();
     const signOut =( )=>{
-        dispatch(setResetAccessToken(0))
+        
         //Chuyen Trang:
         navigation.navigate(KEY_SCREEN.signIn)
     }

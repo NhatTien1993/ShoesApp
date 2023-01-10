@@ -13,6 +13,7 @@ import { addOrderList } from '../../redux/ReduxSlice'
 export default memo(function HomePage() {
   const dispatch = useDispatch()
   const orderListShoes = useSelector((state) => state.redux.orderList)
+  const accessToken=  useSelector((state) => state.redux.accessToken)
   useEffect(() => {
     //  resetOderListStorage() // Reset order list local
     getLocalStorage()
@@ -28,6 +29,7 @@ export default memo(function HomePage() {
     saveStorage(KEY_TOKEN.myCart, orderListShoes)
     console.log(orderListShoes)
   }
+  // console.log(accessToken)
   return (
     <ScrollView>
       <View style={{ backgroundColor: 'black', width: '100%', height: 250, position: 'absolute', borderBottomLeftRadius: 40, borderBottomRightRadius: 40 }} />

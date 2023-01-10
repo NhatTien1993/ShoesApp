@@ -11,6 +11,7 @@ const SlideShow = () => {
     const dispatch = useDispatch()
     const dataShoesDetail = useSelector((state) => state.redux.detailShoesData)
     const idProductFavorite = useSelector((state) => state.redux.idProductFavorite)
+    const accessToken = useSelector((state) => state.redux.accessToken)
     const like = useSelector((state) => state.redux.isLike)
     const unlike = useSelector((state) => state.redux.isUnLike)
     const data = [
@@ -25,15 +26,15 @@ const SlideShow = () => {
         }
     ]
     useEffect(() => {
-        dispatch(getProductFavorite())
+        dispatch(getProductFavorite(accessToken))
     }, [like, unlike])
     const pressLike = (id) => {
         console.log(id)
         const isLike = idProductFavorite.includes(id)
         if (isLike) {
-            dispatch(unlikeProduct(id))
+            dispatch(unlikeProduct({id,accessToken}))
         } else {
-            dispatch(likeProduct(id))
+            dispatch(likeProduct({id,accessToken}))
         }
     }
     const renderItem = ({ item }) => {
