@@ -53,7 +53,7 @@ export const KEY_SCREEN = {
     allShoes:'AllShoes',
     filterShoes:'FilterShoes',
     signIn: 'signIn',
-    signUp:'signUp'
+    signUp:'signUp',
     alertMessage:'AlertMessage',
     flashMessage:'FlashMessage'
 
