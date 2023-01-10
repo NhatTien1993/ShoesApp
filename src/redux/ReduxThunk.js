@@ -10,7 +10,7 @@ export const getCategory = createAsyncThunk(
    }
 )
 export const getProductByCategory = createAsyncThunk(
-   'product/getByCategory',
+ 'product/getByCategory',
    async (params) => {
       const resp = await axios.get(`https://shop.cyberlearn.vn/api/Product/getProductByCategory?categoryId=${params}`)
       const data = await resp.data
@@ -102,7 +102,8 @@ export const getCheckoutProduct = createAsyncThunk(
       return data
    }
 )
-export const getSignIn = createAsyncThunk(
+//SignIn:
+export const Signin = createAsyncThunk(
    'user/SignIn',
    async (params) => {
       const resp = await fetch(`https://shop.cyberlearn.vn/api/Users/signin`, {
@@ -112,11 +113,41 @@ export const getSignIn = createAsyncThunk(
             "Content-Type": "application/json; charset=utf-8",
          },
          body:JSON.stringify({
-            email: "tiennhat1@gmail.com",
-            password: "123123@N"
+            email: params.email,
+            password: params.password
          })
       })
       const json= await resp.json()
-      console.log(json)
+      //console.log(json)
+      return json.content.accessToken;
+   }
+)
+//SignUp:
+export const Signup = createAsyncThunk(
+   //Name:
+   'user/signup',
+   async (params)=> {
+      //Request URL:
+      let resp = await fetch('https://shop.cyberlearn.vn/api/Users/signup',{
+         //Phương thức:
+         method: 'POST',
+         //Header:
+         header:{
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+         },
+         //Biến object thành chuỗi:
+         body: JSON.stringify({
+            email: params.email,
+            password: params.password,
+            name: params.name,
+            gender: params.gender,
+            phone: params.phone,
+         })
+      })
+      // Sau khi lấy xong thì lấy JSON:
+      let json = await resp.json()
+      //Return Json:
+      return json.content.accesToken;
    }
 )

@@ -1,11 +1,14 @@
+
 import { createAction, createSlice } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
-import { getCategory, getProductByCategory, getProductById, likeProduct, unlikeProduct, getProductFavorite, getProduct, getCheckoutProduct } from "./ReduxThunk";
+import { Signin, Signup, getCategory, getProductByCategory, getProductById, likeProduct, unlikeProduct
+, getProductFavorite, getProduct, getCheckoutProduct } from "./ReduxThunk";
 const initialState = {
     categoryData: [],
     shoesData: [],
     allShoes: [],
     isLoadding: false,
+    accessToken:'',
     categorySelected: 'ADIDAS',
     relateShoes: [],
     isSearch: false,
@@ -16,7 +19,12 @@ const initialState = {
     isUnLike: false,
     orderItem: {},
     orderList: [],
-    orderStatus:0
+    orderStatus:0,
+    email: '',
+    password:'',
+    gender: '',
+    name: '',
+    phone: '',
 }
 
 const homePageSlice = createSlice({
@@ -28,6 +36,9 @@ const homePageSlice = createSlice({
         },
         setRelateShoes: (state, action) => {
             state.relateShoes = action.payload
+        },
+        setResetAccessToken: (state,action)=> {
+            state.accessToken = action.payload
         },
         forusSearch: (state, action) => {
             state.isSearch = true
@@ -60,6 +71,30 @@ const homePageSlice = createSlice({
         }).addCase(getProductByCategory.fulfilled, (state, action) => {
             state.isLoadding = false
             state.shoesData = action.payload
+            //-------------------------- SignIn --------------------------//
+        }).addCase(Signin.pending,(state,action)=>{
+            //Update State lại:
+            state.isLoadding = true // (Làm cái quay vòng vòng)
+            //Nếu như SignIn xử lý xong thì FullFilled:
+        }).addCase(Signin.fulfilled,(state,action)=>{
+            //Đã lấy được data-> isLoading cập nhật lại:
+            state.isLoadding = false;
+            //Tạm thời console.log action ra:
+            if(action.payload === undefined){
+                state.accessToken =1
+            }else{
+                state.accessToken= action.payload
+            }
+            //-------------------------- SignUp --------------------------//
+        }).addCase(Signup.pending,(state,action)=>{
+            //Update State lại:
+            state.isLoadding = true // (Làm cái quay vòng vòng)
+            //Nếu như SignUp xử lý xong thì FullFilled:
+        }).addCase(Signup.fulfilled,(state,action)=>{
+            //Đã lấy được data-> isLoading cập nhật lại:
+            state.isLoadding = false;
+            //Tạm thời console.log action ra:
+            console.log(action.payload);
         })
             .addCase(getProduct.pending, (state, action) => {
                 state.isLoadding = true
@@ -102,5 +137,6 @@ const homePageSlice = createSlice({
             })
     }
 })
-export const { setCategorySelected, setRelateShoes, forusSearch, blurSearch, searchShoes, addOrderItem, addOrderList,resetOrderStatus } = homePageSlice.actions
+
+export const { setCategorySelected, setRelateShoes,setResetAccessToken, forusSearch, blurSearch, searchShoes, addOrderItem, addOrderList,resetOrderStatus } = homePageSlice.actions
 export default homePageSlice.reducer

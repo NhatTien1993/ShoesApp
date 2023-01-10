@@ -1,29 +1,62 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, {useState, createRef} from 'react'
+import React, {useState} from 'react'
 import {
     StyleSheet,
     TextInput,
     View,
     Text,
-    ScrollView,
     Image,
     Keyboard,
     TouchableOpacity,
-    KeyboardAvoidingView,
 } from 'react-native';
+import { IMAGES, KEY_SCREEN, SIZES } from '../../common/Constant';
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { Signin } from '../../redux/ReduxThunk';
+import { setResetAccessToken } from '../../redux/ReduxSlice';
+import { useEffect } from 'react';
 
-const Login = ({navigation}) => {
-    //UseState:
-    const [userEmail, setUserEmail] = useState('');
-    const [userPassword, setUserPassword] = useState('');
+const SignIn = () => {
+    //Set state:
+    const [statePassword, setStatePassword] = useState('');
+    const [stateEmail, setStateEmail] = useState('');
+    //Navigation Hook:
+    const navigation = useNavigation ();
+    //Dispatch:
+    const dispatch = useDispatch()
+    //Cach lay tu Redux:
+    const accessToken=  useSelector((state) => state.redux.accessToken)
+    useEffect(() => {
+      console.log(accessToken)
+      if(accessToken ===1){
+        alert('Tài khoản hoặc mật khẩu bị sai, vui  lòng nhập lại')
+      }else if(accessToken !== 0){
+        //Khong thuc hien gi het
+        setStateEmail('')
+        setStatePassword('')
+        navigation.navigate(KEY_SCREEN.tabHome)
+      }
+    },[accessToken])
+    //Tạo hàm SignIn:
+    const signin = ()=>{
+      const data = {
+        email: stateEmail,
+        password: statePassword,
+      }
+      dispatch(Signin(data))
+      console.log(accessToken)
+    }
+  
+    console.log(stateEmail)
+    console.log(statePassword)
+    //View:
     return (
         <View style={styles.mainBody}>
             <View>
               <View>
-                {/* Login */}
+                {/* SignIn Logo */}
                 <View style={{alignItems: 'center'}}>
                   <Image
-                    source={require('../../../assets/Login.jpg')}
+                    source={IMAGES.signInLogo}
                     style={{
                       width: '50%',
                       height: 100,
@@ -32,32 +65,25 @@ const Login = ({navigation}) => {
                     }}
                   />
                 </View>
-                {/* TextField: Email & Password */}
+                {/* TextField: Email*/}
                 <View style={styles.SectionStyle}>
                   <TextInput
                     style={styles.inputStyle}
-                    onChangeText={(UserEmail) =>
-                      setUserEmail(UserEmail)
-                    }
                     placeholder="Enter Email"
                     placeholderTextColor="#8b9cb5"
                     autoCapitalize="none"
                     keyboardType="email-address"
                     returnKeyType="next"
-                    onSubmitEditing={() =>
-                      passwordInputRef.current &&
-                      passwordInputRef.current.focus()
-                    }
                     underlineColorAndroid="#f000"
                     blurOnSubmit={false}
+                    value={stateEmail}
+                    onChangeText={(value)=> setStateEmail(value)}
                   />
                 </View>
+                {/* TextField: Password */}
                 <View style={styles.SectionStyle}>
                   <TextInput
                     style={styles.inputStyle}
-                    onChangeText={(UserPassword) =>
-                      setUserPassword(UserPassword)
-                    }
                     placeholder="Enter Password" //12345
                     placeholderTextColor="#8b9cb5"
                     keyboardType="default"
@@ -66,18 +92,21 @@ const Login = ({navigation}) => {
                     secureTextEntry={true}
                     underlineColorAndroid="#f000"
                     returnKeyType="next"
+                    value= {statePassword}
+                    onChangeText={(value)=> setStatePassword(value)}
                   />
                 </View>
-                {/* Button Login */}
+                {/* Button SignIn */}
                 <TouchableOpacity
                   style={styles.buttonStyle}
-                  activeOpacity={0.5}>
-                  <Text style={styles.buttonTextStyle}>LOGIN</Text>
+                  activeOpacity={0.5} 
+                  onPress={signin}>
+                  <Text style={styles.buttonTextStyle}>SIGN IN</Text>
                 </TouchableOpacity>
                 <Text
                   style={styles.registerTextStyle}
-                  onPress={() => navigation.navigate('Register')}>
-                  New Here ? Register
+                  onPress={() => navigation.navigate(KEY_SCREEN.signUp)}>
+                  New Here ? Sign Up
                 </Text>
               </View>
             </View>
@@ -85,7 +114,7 @@ const Login = ({navigation}) => {
     );
 }
 
-export default Login
+export default SignIn;
 
 const styles = StyleSheet.create({
     mainBody: {
@@ -96,7 +125,8 @@ const styles = StyleSheet.create({
     },
     SectionStyle: {
       flexDirection: 'row',
-      height: 40,
+      //SIZE.height(%)
+      height: SIZES.height(8),
       marginTop: 20,
       marginLeft: 35,
       marginRight: 35,
@@ -122,7 +152,7 @@ const styles = StyleSheet.create({
     },
     inputStyle: {
       flex: 1,
-      color: 'white',
+      color: 'black',
       paddingLeft: 15,
       paddingRight: 15,
       borderWidth: 1,
