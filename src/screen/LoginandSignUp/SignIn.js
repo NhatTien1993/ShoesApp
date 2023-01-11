@@ -11,14 +11,14 @@ import {
 import { IMAGES, KEY_SCREEN, SIZES } from '../../common/Constant';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
-import { Signin } from '../../redux/ReduxThunk';
+import { getProfile, Signin } from '../../redux/ReduxThunk';
 import { resetState, setResetAccessToken } from '../../redux/ReduxSlice';
 import { useEffect } from 'react';
 
 const SignIn = () => {
   //Set state:
-  const [statePassword, setStatePassword] = useState('');
-  const [stateEmail, setStateEmail] = useState('');
+  const [statePassword, setStatePassword] = useState('123123@N');
+  const [stateEmail, setStateEmail] = useState('tiennhat1@gmail.com');
   //Navigation Hook:
   const navigation = useNavigation();
   //Dispatch:
@@ -36,7 +36,7 @@ const SignIn = () => {
       //Khong thuc hien gi het
       setStateEmail('')
       setStatePassword('')
-      // navigation.navigate(KEY_SCREEN.tabHome)
+      navigation.navigate(KEY_SCREEN.tabHome)
     }
   }, [accessToken])
   useEffect(() => {
@@ -49,8 +49,7 @@ const SignIn = () => {
       password: statePassword,
     }
     dispatch(Signin(data))
-    console.log(accessToken)
-    navigation.navigate(KEY_SCREEN.tabHome)
+    // console.log(accessToken)
   }
 
   // console.log(stateEmail)

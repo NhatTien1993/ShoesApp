@@ -13,6 +13,7 @@ const Detail = () => {
     const dataShoesDetail = useSelector((state) => state.redux.detailShoesData)
     const orderItemShoes = useSelector((state) => state.redux.orderItem)
     const orderListShoes = useSelector((state) => state.redux.orderList)
+    const userProfile = useSelector((state) => state.redux.userProfile)
     const category = dataShoesDetail?.categories[0]?.category
     const sizes = dataShoesDetail.size
     const colors = [COLORS.dark, COLORS.greylight]
@@ -41,7 +42,7 @@ const Detail = () => {
         }
     }, [orderItemShoes])
     useEffect(() => {
-        saveStorage(KEY_TOKEN.myCart, orderListShoes)
+        userProfile.email && saveStorage(userProfile.email, orderListShoes)
     }, [orderListShoes])
     const handleAddBag = (data) => {
         dispatch(addOrderItem(data))

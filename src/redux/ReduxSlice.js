@@ -2,8 +2,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
     Signin, Signup, getCategory, getProductByCategory, getProductById, likeProduct, unlikeProduct
-    , getProductFavorite, getProduct, getCheckoutProduct
+    , getProductFavorite, getProduct, getCheckoutProduct, getProfile
 } from "./ReduxThunk";
+
 const initialState = {
     categoryData: [],
     shoesData: [],
@@ -26,6 +27,7 @@ const initialState = {
     gender: '',
     name: '',
     phone: '',
+    userProfile:{}
 }
 
 const homePageSlice = createSlice({
@@ -138,6 +140,12 @@ const homePageSlice = createSlice({
             }).addCase(getCheckoutProduct.fulfilled, (state, action) => {
                 state.isLoadding = false
                 state.orderStatus = action.payload
+            })
+            .addCase(getProfile.pending, (state, action) => {
+                state.isLoadding = true
+            }).addCase(getProfile.fulfilled, (state, action) => {
+                state.isLoadding = false
+                state.userProfile = action.payload
             })
     }
 })
