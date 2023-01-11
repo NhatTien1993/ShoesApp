@@ -1,6 +1,11 @@
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, {useState} from 'react'
 import { ICONS, IMAGES } from '../../common/Constant'
+/**
+ * Khi người dùng xem thông tin -> Thẻ TextInput đang ở state (Disable)
+ * Khi người dùng muốn chỉnh sửa -> Nhấn icon edit->  TextInput Chuyển qua trạng thái (state: Enable)
+ * @returns nguyentruongkhoinguyen
+ */
 
 const UserProfile = () => {
   return (
@@ -13,6 +18,9 @@ const UserProfile = () => {
             <View style={styles.taskBar_titleView}>
                 <Text style={styles.taskBar_titleView_title}>User Profile</Text>
             </View>
+            <TouchableOpacity style={styles.taskar_editProfile}>
+                    <Image style={styles.taskar_editProfile_icon} source={ICONS.icEdit} />
+            </TouchableOpacity>
         </View>
 
         {/* Image Profile */}
@@ -20,54 +28,81 @@ const UserProfile = () => {
             {/* Picture Profile */}
             <Image source={IMAGES.profilePic} style={styles.informProfile_Image}/>
         </TouchableOpacity>
+
+
         {/* Column*/}
 
-        {/* Name */}
+        {/* Text Input: Name */}
         <View style={styles.containerInput}>
             <Text>Name</Text>
             {/* Row*/}
             <View style={styles.containerInput__input}>
                 <Image style={styles.containerInput__input__images} source={ICONS.icProfile}/>
-                <TextInput style={styles.containerInput__input__textInput}/>
+                <TextInput 
+                    editable={false} 
+                    selectTextOnFocus={false} 
+                    style={styles.containerInput__input__textInput}>
+                        Ng.Tr.Kh.Nguyen
+                </TextInput>
             </View>
         </View>
 
-        {/* Email */}
+        {/* Text Input: Email */}
         <View style={styles.containerInput}>
             <Text>Email</Text>
             {/* Row*/}
             <View style={styles.containerInput__input}>
                 <Image style={styles.containerInput__input__images} source={ICONS.iconEmail}/>
-                <TextInput style={styles.containerInput__input__textInput}/>
+                <TextInput 
+                    editable={false} 
+                    selectTextOnFocus={false} 
+                    style={styles.containerInput__input__textInput}>
+                        nguyen2k@gmail.com
+                </TextInput>
             </View>
         </View>
 
-        {/* Gender */}
+        {/* Text Input: Gender */}
         <View style={styles.containerInput}>
             <Text>Gender</Text>
             {/* Row*/}
             <View style={styles.containerInput__input}>
                 <Image style={styles.containerInput__input__images} source={ICONS.icGenders}/>
-                <TextInput secureTextEntry={true} style={styles.containerInput__input__textInput}/>
+                <TextInput 
+                    editable={false} 
+                    selectTextOnFocus={false} 
+                    style={styles.containerInput__input__textInput}>
+                        Male
+                </TextInput>
             </View>
         </View>
 
-        {/* Phone */}
+        {/* Text Input: Phone */}
         <View style={styles.containerInput}>
             <Text>Phone</Text>
             {/* Row*/}
             <View style={styles.containerInput__input}>
                 <Image style={styles.containerInput__input__images} source={ICONS.icPhone}/>
-                <TextInput secureTextEntry={true} style={styles.containerInput__input__textInput}/>
+                <TextInput 
+                    editable={false} 
+                    selectTextOnFocus={false} 
+                    style={styles.containerInput__input__textInput}>
+                        0900404040404
+                </TextInput>
             </View>
         </View>
-        {/* Facebook */}
+        {/* Text Input: Facebook */}
         <View style={styles.containerInput}>
             <Text>Facebook</Text>
             {/* Row*/}
             <View style={styles.containerInput__input}>
                 <Image style={styles.containerInput__input__images} source={ICONS.icLink}/>
-                <TextInput secureTextEntry={true} style={styles.containerInput__input__textInput}/>
+                <TextInput
+                    editable={false} 
+                    selectTextOnFocus={false} 
+                    style={styles.containerInput__input__textInput}>
+                        nguyen23
+                </TextInput>
             </View>
         </View>
 
@@ -105,6 +140,15 @@ const styles = StyleSheet.create({
         marginTop:-35, 
         marginLeft:120, 
         color:'white'
+    },
+    taskar_editProfile:{
+        flexDirection:'row'
+    },
+    taskar_editProfile_icon:{
+        width:30,
+        height: 30,
+        margin:-35,
+        marginLeft: 375,
     },
     containerInput:{
         borderBottomWidth:1,

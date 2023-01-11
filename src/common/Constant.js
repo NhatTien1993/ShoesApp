@@ -95,6 +95,7 @@ export const ICONS = {
     icGenders: require('../../assets/icons/gender.png'),
     icPhone: require('../../assets/icons/phone.png'),
     icLink: require('../../assets/icons/link.png'),
+    icEdit: require('../../assets/icons/edit.png')
 }
 
 export const IMAGES = {
