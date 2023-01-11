@@ -16,28 +16,29 @@ export default memo(function MyCart() {
     const navigation = useNavigation()
     const orderListShoes = useSelector((state) => state.redux.orderList)
     const orderStatus = useSelector((state) => state.redux.orderStatus)
+    const userProfile = useSelector((state) => state.redux.userProfile)
     const totalPay = myCartData.reduce((total,item)=>{
         return total += (item.price * item.quantity)
     },0)
     useEffect(() => {
-        saveStorage(KEY_TOKEN.myCart, orderListShoes)
+        userProfile.email && saveStorage(userProfile.email, orderListShoes)
         getOrderData()
     }, [orderListShoes])
     const getOrderData = async () => {
-        const data = await getStorage(KEY_TOKEN.myCart)
+        const data = await getStorage(userProfile.email)
         if (data) {
             setMyCartData(data)
         }
-        // console.log('load storage')
+        
 
     }
+    console.log(userProfile.email)
     useEffect(()=>{
-        console.log(orderStatus)
-        if(orderStatus=== 200) {
+        if(orderStatus === 200) {
             Utils.showToast('Đặt hàng thành công', ICONS.iconCartCheckout, 1500,'normal')
             dispatch(addOrderList([]))
             dispatch(resetOrderStatus(0))
-        }else if(orderStatus != 0){
+        }else if(orderStatus !== 0){
             Utils.showToast('Đặt hàng thất bại', ICONS.iconCartCheckout, 1500,'error')
             dispatch(resetOrderStatus(0))
         }     
@@ -47,7 +48,7 @@ export default memo(function MyCart() {
         if (orderListShoes.length === 0) {
             Utils.showToast('Vui lòng thêm sản phẩm vào giỏ', ICONS.iconCartCheckout, 1500,'warning')
         } else {
-            dispatch(getCheckoutProduct(myCartData))
+            dispatch(getCheckoutProduct({myCartData,email:userProfile.email}))
         }
     }
     const handleDeleteOrderItem = (index) => {

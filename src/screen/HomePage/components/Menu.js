@@ -1,9 +1,8 @@
 import { View, Text, FlatList, TouchableOpacity } from 'react-native'
 import React,{useEffect,memo} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getCategory, getProductByCategory, getProductFavorite,  } from '../../../redux/ReduxThunk'
+import { getCategory, getProductByCategory, getProductFavorite, getProfile,  } from '../../../redux/ReduxThunk'
 import { setCategorySelected } from '../../../redux/ReduxSlice'
-
 export default memo(function Menu() {
     const categoryData = useSelector((state) => state.redux.categoryData)
     const categorySelected = useSelector((state) => state.redux.categorySelected)
@@ -15,6 +14,7 @@ export default memo(function Menu() {
     }, [])
     useEffect(() => {
         dispatch(getProductFavorite(accessToken))
+        dispatch(getProfile(accessToken))
     }, [accessToken])
     // console.log(categoryData)
     const _setCategory = (id) => {
