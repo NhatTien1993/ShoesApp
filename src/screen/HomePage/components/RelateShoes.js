@@ -33,7 +33,7 @@ export default memo(function RelateShoes() {
                 <Text style={{ fontSize: 18, fontWeight: 'bold', color: COLORS.dark }}>Related Products</Text>
                 <TouchableOpacity 
                 onPress={()=> {navigation.navigate(KEY_SCREEN.allShoes)}}
-                style={{ flexDirection: 'row' }}>
+                style={{ flexDirection: 'row',alignItems:'center' }}>
                     <Text style={{ fontSize: 16, color: COLORS.dark }}>Show all</Text>
                     <Image
                         style={{ width: 24, height: 24 }}
