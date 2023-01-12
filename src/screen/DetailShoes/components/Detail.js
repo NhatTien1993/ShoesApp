@@ -87,7 +87,7 @@ const Detail = () => {
             </View>
             <ScrollView
                 horizontal={true}
-                style={{ paddingVertical: 5 }}>
+                style={{ paddingVertical: 5,marginHorizontal:-5 }}>
                 {sizes.map((size, index) => {
                     return (
                         <TouchableOpacity
