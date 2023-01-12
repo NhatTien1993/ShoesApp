@@ -13,44 +13,60 @@ export default function User() {
     const dispatch = useDispatch()
     const navigation = useNavigation();
     const signOut =( )=>{
-        
         //Chuyen Trang:
         navigation.navigate(KEY_SCREEN.signIn)
     }
+    const Alert = ()=>{
+        alert('This function is being developed')
+    }
     return (
         <View style={styles.container}>
-            {/* Title & Description */}
-            <View style={styles.titleDescription}>
-                <Text style={styles.titleDescription_title}>Athletic Shose</Text>
-                <Text style={styles.titleDescription_description}>Ứng Dụng Bán Giày Số 1 Việt Nam </Text>
+            {/* Background */}
+            <Image source={IMAGES.backgroundProfile} style={styles.imageBackground}/>
+            {/* InForm Profile */}
+            <View style={styles.informProfile}>
+                {/* Picture Profile */}
+                <Image source={IMAGES.profilePic} style={styles.informProfile_Image}/>
+                <View style={styles.informProfile_Direction}>
+                    <Text style={styles.informProfile_Direction_Name}>Ng.Tr.Kh.Nguyen</Text>
+                    <Text style={styles.informProfile_Direction_AgeGender}>090123123</Text>
+                </View>
             </View>
-
-            {/* Logo Adidas */}
-            <View style={styles.logo}>
-                <Image source={IMAGES.adidasLogo} style={styles.logo_image}/>
-            </View>
-
-            {/* Terms & Condition */}
-
-            <TouchableOpacity style={styles.viewTerms}>
-                <Image source={ICONS.iconTerms} style={styles.viewTerms_icon}/>
-                    <TouchableOpacity style={styles.viewTerms_text}>
-                        <Text style={{fontSize: 20}}>Terms & Conditions</Text>
-                </TouchableOpacity>
-                <Image source={ICONS.iconArrowForward}/>
+            {/* Setting */}
+            <TouchableOpacity 
+                style={styles.touchList_Function} 
+                onPress={Alert}
+            >
+                <Image source={ICONS.icSetting} style={styles.touchList_Function_Icon}/>
+                <Text style={{fontSize:20}}>Setting</Text>
             </TouchableOpacity>
-            
+            {/* Notification */}
+            <TouchableOpacity 
+                style={styles.touchList_Function} 
+                onPress={Alert}
+            >
+                <Image source={ICONS.icNotification} style={styles.touchList_Function_Icon}/>
+                <Text style={styles.touchList_Function_Title}>Notification</Text>
+            </TouchableOpacity>
+            {/* Intro and Guide */}
+            <TouchableOpacity 
+                style={styles.touchList_Function} 
+                onPress={Alert}
+            >
+                <Image source={ICONS.icGuide} style={styles.touchList_Function_Icon}/>
+                <Text style={styles.touchList_Function_Title}>Intro and Guide</Text>
+            </TouchableOpacity>
+            {/* Change Profile */}
+            <TouchableOpacity style={styles.touchList_Function}>
+                <Image source={ICONS.icProfile} style={styles.touchList_Function_Icon}/>
+                <Text style={styles.touchList_Function_Title}>Change Profile</Text>
+            </TouchableOpacity>
+            {/* Change Password */}
+            <TouchableOpacity style={styles.touchList_Function}>
+                <Image source={ICONS.icLock} style={styles.touchList_Function_Icon}/>
+                <Text style={styles.touchList_Function_Title}>Change Password</Text>
+            </TouchableOpacity>
 
-            {/* Privacy Policy */}
-            <TouchableOpacity style={styles.viewPolicy}>
-                <Image source={ICONS.iconPolicy} style={styles.viewPolicy_icon}/>
-                <TouchableOpacity style={styles.viewPolicy_text}>
-                    <Text style={{fontSize: 20}}>Privacy Policy</Text>
-                </TouchableOpacity>
-                <Image source={ICONS.iconArrowForward}/>
-            </TouchableOpacity>  
-                        
-              <Text style={styles.version}>Version 1.01</Text>
               {/* Sign out */}
             <TouchableOpacity style={styles.buttonStyle} 
                 onPress= {signOut}>
@@ -63,73 +79,53 @@ const styles = StyleSheet.create({
     container:{
         flex: 1,
     },
-    titleDescription:{
-        justifyContent:'center', 
-        alignItems:'center', 
-        padding: 30
-    },
-    titleDescription_title:{
-        fontSize: 30, 
-        fontWeight:'bold'
-    },
-    titleDescription_description:{
-        fontSize: 22,
-    },
-    logo:{
-        justifyContent:'center', 
-        alignItems:'center'
-    },
-    logo_image:{
+    imageBackground:{
         height:150, 
-        width:150,
+        width: '100%', 
+        padding:10
     },
-    textLink:{
-        color: 'blue',
-        fontSize: 20
+    informProfile:{
+        flexDirection:'row',
     },
-    viewTerms:{
-        paddingTop: 30,
-        marginBottom: 10,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-around',
-        width: '100%',
+    informProfile_Image:{
+        width:140, 
+        height:140, 
+        borderRadius: 100, 
+        marginTop:-60
     },
-    viewPolicy:{
-        paddingTop: 30,
-        marginBottom: 12,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-around',
-        width: '100%',
+    informProfile_Direction:{
+        flexDirection:'column',
+        marginTop:-10, 
+        padding:10
     },
-    viewTerms_icon:{
+    informProfile_Direction_Name:{
+        fontSize:25, 
+        fontWeight:'bold',
+    },
+    informProfile_Direction_AgeGender:{
+        fontSize:15, 
+        color:'grey'
+    },
+    touchList_Function:{
+        alignSelf:'center', 
+        flexDirection:'row', 
+        width:'90%', 
+        padding:15, 
+        paddingBottom:10, 
+        borderRadius:10, 
+        shadowOpacity:10,
+        backgroundColor:'#fff', 
+        marginBottom:5
+    },
+    touchList_Function_Icon:{
         width:30, 
-        height:30, 
-        alignSelf:'flex-start',
-        height:24, 
-        marginRight:8,
+        height:30
     },
-    viewPolicy_icon:{
-        width:30, 
-        height:30, 
-        alignSelf:'flex-start',
-        height:24, 
-        marginRight:8,
-    },
-    viewTerms_text:{
-        flexDirection:'column', 
-        alignItems:'center',
-    },
-    viewPolicy_text:{
-        flexDirection:'column', 
-        alignItems:'center',
-    },
-    version:{
-        alignSelf:"center"
+    touchList_Function_Title:{
+        fontSize:20
     },
     buttonStyle: {
-        backgroundColor: '#7DE24E',
+        backgroundColor: 'black',
         borderWidth: 0,
         color: '#FFFFFF',
         borderColor: '#7DE24E',
@@ -147,3 +143,11 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
 })
+
+/**
+ * Image:
+ * +backgroundProfile; profilePic
+ * 
+ * ICONS:
+ * + icSetting, icNotification, icGuide,icProfile,icLock
+ */
