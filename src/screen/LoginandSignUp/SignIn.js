@@ -14,8 +14,30 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getProfile, Signin } from '../../redux/ReduxThunk';
 import { resetState, setResetAccessToken } from '../../redux/ReduxSlice';
 import { useEffect } from 'react';
+import * as Yup from 'yup';
+import { Formik, validateYupSchema } from 'formik';
+
+
 
 const SignIn = () => {
+  const SignInSchema = Yup.object().shape({
+    //Email: Kiểu dữ liệu là String và không được phép rỗng và có định dạng mặc định là dạng email và đó là bắt buột:
+    /**
+     * /Email: Kiểu dữ liệu là String và không được phép rỗng và có định dạng mặc định là dạng email:
+     * -> email: Yup.string().min(1,'Vui lòng nhập email').email
+     * 
+     * Email: Kiểu dữ liệu là String và không được phép rỗng và có định dạng mặc định là dạng email và đó là bắt buột:
+     * ->email: Yup.string().min(1,'Vui lòng nhập email').email.require
+     */
+    email: Yup.string().min(1, 'Vui long nhap email').email.require,
+  
+    //Password: Kiểu String (Phải bao gồm CHỮ HOA, thường, ký tự đặc biệt và số & Lớn hơn 8 ký tự)
+    password: Yup.string().matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+        "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
+    )
+  })
+
   //Set state:
   const [statePassword, setStatePassword] = useState('123123@N');
   const [stateEmail, setStateEmail] = useState('tiennhat1@gmail.com');
@@ -57,67 +79,88 @@ const SignIn = () => {
   
   //View:
   return (
-    <View style={styles.mainBody}>
-      <View>
-        <View>
-          {/* SignIn Logo */}
-          <View style={{ alignItems: 'center' }}>
-            <Image
-              source={IMAGES.signInLogo}
-              style={{
-                width: '50%',
-                height: 100,
-                resizeMode: 'contain',
-                margin: 30,
-              }}
-            />
+    <Formik 
+      initialValues={{ 
+        email: '', 
+        password: '' 
+      }}
+      validationSchema={SignInSchema}
+      onSubmit={(data) => Signin(data)}
+      >
+      {({ values, handleChange, handleSubmit, errors}) => {
+        //Xuat ra thu:
+        //Xuất ra thử:
+        console.log(errors)
+        return (
+          <View style={styles.mainBody}>
+            <View>
+              <View>
+                {/* SignIn Logo */}
+                <View style={{ alignItems: 'center' }}>
+                  <Image
+                    source={IMAGES.signInLogo}
+                    style={{
+                      width: '50%',
+                      height: 100,
+                      resizeMode: 'contain',
+                      margin: 30,
+                    }}
+                  />
+                </View>
+                {/* TextField: Email*/}
+                <View style={styles.SectionStyle}>
+                  <TextInput
+                    style={styles.inputStyle}
+                    placeholder="Enter Email"
+                    placeholderTextColor="#8b9cb5"
+                    autoCapitalize="none"
+                    keyboardType="email-address"
+                    returnKeyType="next"
+                    underlineColorAndroid="#f000"
+                    blurOnSubmit={false}
+                    //value={stateEmail}
+                    //onChangeText={(value) => setStateEmail(value)}
+                    //onChangeText={handleChange('email')}
+                    value={values.email}
+                    onChangeText={handleChange('email')}
+                  />
+                </View>
+                {/* TextField: Password */}
+                <View style={styles.SectionStyle}>
+                  <TextInput
+                    style={styles.inputStyle}
+                    placeholder="Enter Password" //12345
+                    placeholderTextColor="#8b9cb5"
+                    keyboardType="default"
+                    onSubmitEditing={Keyboard.dismiss}
+                    blurOnSubmit={false}
+                    secureTextEntry={true}
+                    underlineColorAndroid="#f000"
+                    returnKeyType="next"
+                    //value={statePassword}
+                    //onChangeText={(value) => setStatePassword(value)}
+                    value={values.password}
+                    onChangeText={handleChange('password')}
+                  />
+                </View>
+                {/* Button SignIn */}
+                <TouchableOpacity
+                  style={styles.buttonStyle}
+                  activeOpacity={0.5}
+                  >
+                  <Text style={styles.buttonTextStyle}>SIGN IN</Text>
+                </TouchableOpacity>
+                <Text
+                  style={styles.registerTextStyle}
+                  onPress={() => navigation.navigate(KEY_SCREEN.signUp)}>
+                  New Here ? Sign Up
+                </Text>
+              </View>
+            </View>
           </View>
-          {/* TextField: Email*/}
-          <View style={styles.SectionStyle}>
-            <TextInput
-              style={styles.inputStyle}
-              placeholder="Enter Email"
-              placeholderTextColor="#8b9cb5"
-              autoCapitalize="none"
-              keyboardType="email-address"
-              returnKeyType="next"
-              underlineColorAndroid="#f000"
-              blurOnSubmit={false}
-              value={stateEmail}
-              onChangeText={(value) => setStateEmail(value)}
-            />
-          </View>
-          {/* TextField: Password */}
-          <View style={styles.SectionStyle}>
-            <TextInput
-              style={styles.inputStyle}
-              placeholder="Enter Password" //12345
-              placeholderTextColor="#8b9cb5"
-              keyboardType="default"
-              onSubmitEditing={Keyboard.dismiss}
-              blurOnSubmit={false}
-              secureTextEntry={true}
-              underlineColorAndroid="#f000"
-              returnKeyType="next"
-              value={statePassword}
-              onChangeText={(value) => setStatePassword(value)}
-            />
-          </View>
-          {/* Button SignIn */}
-          <TouchableOpacity
-            style={styles.buttonStyle}
-            activeOpacity={0.5}
-            onPress={signin}>
-            <Text style={styles.buttonTextStyle}>SIGN IN</Text>
-          </TouchableOpacity>
-          <Text
-            style={styles.registerTextStyle}
-            onPress={() => navigation.navigate(KEY_SCREEN.signUp)}>
-            New Here ? Sign Up
-          </Text>
-        </View>
-      </View>
-    </View>
+        );
+      }}
+    </Formik>
   );
 }
 
