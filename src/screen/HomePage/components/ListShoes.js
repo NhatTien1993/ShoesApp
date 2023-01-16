@@ -31,7 +31,6 @@ export default memo(function ListShoes() {
         dispatch(getProductFavorite(accessToken))
     }, [like, unlike])
     const pressLike = (id) => {
-        console.log(id)
         const isLike = idProductFavorite.includes(id)
         if (isLike) {
             dispatch(unlikeProduct({id,accessToken}))

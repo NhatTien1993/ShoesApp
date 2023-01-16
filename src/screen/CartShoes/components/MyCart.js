@@ -1,7 +1,7 @@
-import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native'
+import { View, Text, Image, TouchableOpacity, LogBox } from 'react-native'
 import React, { memo } from 'react'
-import { SwipeListView, SwipeRow } from 'react-native-swipe-list-view';
-import { COLORS, ICONS, KEY_SCREEN, KEY_TOKEN, SIZES, STYLES } from '../../../common/Constant';
+import { SwipeListView } from 'react-native-swipe-list-view';
+import { COLORS, ICONS, SIZES, STYLES } from '../../../common/Constant';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { getStorage, saveStorage } from '../../../common/LocalStorage';
@@ -17,6 +17,9 @@ export default memo(function MyCart() {
     const orderListShoes = useSelector((state) => state.redux.orderList)
     const orderStatus = useSelector((state) => state.redux.orderStatus)
     const profile = useSelector((state) => state.redux.userProfile)
+    LogBox.ignoreLogs([
+        'Non-serializable values were found in the navigation state',
+    ]);
     const totalPay = myCartData.reduce((total, item) => {
         return total += (item.price * item.quantity)
     }, 0)
@@ -104,7 +107,7 @@ export default memo(function MyCart() {
         }
         let isDeleteItem = updateOrderList.every((item) => item.quantity > 0)
         if (!isDeleteItem) {
-            Utils.showAlert('Bạn chắc chắn muốn bỏ sản phẩm này?',handleYes,handleNo)
+            Utils.showAlert('Bạn chắc chắn muốn bỏ sản phẩm này?', handleYes, handleNo)
             // navigation.navigate(KEY_SCREEN.alertMessage, { indexItem: id, data: updateOrderList })
         } else {
             dispatch(addOrderList(updateOrderList))
