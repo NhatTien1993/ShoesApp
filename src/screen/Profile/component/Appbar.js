@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity } from 'react-native'
+import { View, Text, Image, TouchableOpacity,LogBox } from 'react-native'
 import React from 'react'
 import styles from '../styles/styles'
 import { useNavigation } from '@react-navigation/native'
@@ -15,6 +15,9 @@ export default function Appbar() {
     dispatch(updateProfile(false))
     navigation.goBack()
   }
+  LogBox.ignoreLogs([
+    'Non-serializable values were found in the navigation state',
+  ]);
   
   return (
     <View style={styles.appbar}>
