@@ -32,6 +32,7 @@ export const COLORS = {
     secondaryBlur : 'rgba(0,0,0,0.7)',
     secondary:'rgb(17,16,20)',
     bcground: 'rgb(242,242,242)',
+    bcground1: 'rgb(230,230,230)',
     dark:'black',
     darkLight:'#aaa',
     white:'#fff',
@@ -55,7 +56,9 @@ export const KEY_SCREEN = {
     signIn: 'signIn',
     signUp:'signUp',
     alertMessage:'AlertMessage',
-    flashMessage:'FlashMessage'
+    flashMessage:'FlashMessage',
+    profile:'Profile',
+    changePassword:'ChangePassword'
 
    
 }

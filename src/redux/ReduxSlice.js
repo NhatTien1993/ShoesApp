@@ -1,8 +1,8 @@
 
 import { createSlice } from "@reduxjs/toolkit";
 import {
-    Signin, Signup, getCategory, getProductByCategory, getProductById, likeProduct, unlikeProduct
-    , getProductFavorite, getProduct, getCheckoutProduct, getProfile
+    Signin, getSignup, getCategory, getProductByCategory, getProductById, likeProduct, unlikeProduct
+    , getProductFavorite, getProduct, getCheckoutProduct, getProfile, getUpdateProfile, getChangePassword
 } from "./ReduxThunk";
 
 const initialState = {
@@ -27,7 +27,12 @@ const initialState = {
     gender: '',
     name: '',
     phone: '',
-    userProfile:{}
+    userProfile: {},
+    isUpdate: false,
+    updateProfileStatus: '',
+    signupMessage: '',
+    changePassStatus:'',
+    facebook:''
 }
 
 const homePageSlice = createSlice({
@@ -61,10 +66,27 @@ const homePageSlice = createSlice({
         resetOrderStatus: (state, action) => {
             state.orderStatus = action.payload
         },
+        resetUpdateStatus: (state, action) => {
+            state.updateProfileStatus = action.payload
+        },
+        resetChangePassStatus: (state, action) => {
+            state.changePassStatus = action.payload
+        },
         resetState: (state, action) => {
             state.categorySelected = 'ADIDAS'
         },
+        updateProfile: (state, action) => {
+            state.isUpdate = action.payload
+        },
+        resetSignupMessage: (state, action) => {
+            state.signupMessage = action.payload
+        },
+        setFacebook: (state, action) => {
+            state.facebook = action.payload
+        },
         
+
+
 
     },
     extraReducers: builder => {
@@ -93,15 +115,19 @@ const homePageSlice = createSlice({
                 state.accessToken = action.payload
             }
             //-------------------------- SignUp --------------------------//
-        }).addCase(Signup.pending, (state, action) => {
+        }).addCase(getSignup.pending, (state, action) => {
             //Update State lại:
             state.isLoadding = true // (Làm cái quay vòng vòng)
-            //Nếu như SignUp xử lý xong thì FullFilled:
-        }).addCase(Signup.fulfilled, (state, action) => {
+            //Nếu như getSignup xử lý xong thì FullFilled:
+        }).addCase(getSignup.fulfilled, (state, action) => {
             //Đã lấy được data-> isLoading cập nhật lại:
             state.isLoadding = false;
-            //Tạm thời console.log action ra:
-            console.log(action.payload);
+            if (action.payload) {
+                state.signupMessage = action.payload
+            } else {
+                state.signupMessage = 1
+            }
+
         })
             .addCase(getProduct.pending, (state, action) => {
                 state.isLoadding = true
@@ -147,8 +173,28 @@ const homePageSlice = createSlice({
                 state.isLoadding = false
                 state.userProfile = action.payload
             })
+            .addCase(getUpdateProfile.pending, (state, action) => {
+                state.isLoadding = true
+            }).addCase(getUpdateProfile.fulfilled, (state, action) => {
+                state.isLoadding = false
+                if (action.payload === undefined) {
+                    state.updateProfileStatus = 1
+                } else {
+                    state.updateProfileStatus = action.payload
+                }
+            })
+            .addCase(getChangePassword.pending, (state, action) => {
+                state.isLoadding = true
+            }).addCase(getChangePassword.fulfilled, (state, action) => {
+                state.isLoadding = false
+                if (action.payload === undefined) {
+                    state.changePassStatus = 1
+                } else {
+                    state.changePassStatus = action.payload
+                }
+            })
     }
 })
 
-export const { resetState,setCategorySelected, setRelateShoes, setResetAccessToken, forusSearch, blurSearch, searchShoes, addOrderItem, addOrderList, resetOrderStatus } = homePageSlice.actions
+export const { setFacebook,resetChangePassStatus,resetSignupMessage,resetUpdateStatus, updateProfile, resetState, setCategorySelected, setRelateShoes, setResetAccessToken, forusSearch, blurSearch, searchShoes, addOrderItem, addOrderList, resetOrderStatus } = homePageSlice.actions
 export default homePageSlice.reducer
