@@ -1,7 +1,7 @@
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator, BottomTabBar } from '@react-navigation/bottom-tabs';
-import { KEY_SCREEN, ICONS, COLORS } from "../common/Constant";
+import { KEY_SCREEN, ICONS, COLORS, SIZES } from "../common/Constant";
 import HomePage from "../screen/HomePage/HomePage";
 import AddShoes from "../screen/AddShoes/AddShoes";
 import SearchShoes from "../screen/SearchShoes/SearchShoes";
@@ -12,20 +12,27 @@ import AllShoes from "../screen/AllShoes/AllShoes";
 import FilterShoes from '../screen/FilterShoes/FilterShoes'
 import AlertMessage from "../screen/FlashScreen/AlertMessage";
 import FlashMessage from "../screen/FlashScreen/FlashMessage";
-import { Image, View, TouchableOpacity } from "react-native";
+import { Image, View, TouchableOpacity, Platform } from "react-native";
 import SignUp from "../screen/LoginandSignUp/SignUp";
 import SignIn from "../screen/LoginandSignUp/SignIn";
+import Profile from "../screen/Profile/Profile";
+import ChangePassword from "../screen/User/ChangePassword";
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
 
 const config = {
-    animation: 'timing',
+    animation: 'spring',
     config: {
-        duration: 2000,
-        easing: 2000
+        stiffness: 1000,
+        damping: 500,
+        mass: 3,
+        overshootClamping: true,
+        restDisplacementThreshold: 0.01,
+        restSpeedThreshold: 0.01,
     },
 };
+
 
 const TabBarNavigator = () => (
     <Tab.Navigator
@@ -38,7 +45,7 @@ const TabBarNavigator = () => (
                 left: 15,
                 right: 15,
                 borderRadius: 15,
-                height: 55,
+                height: SIZES.height(6),
                 backgroundColor: COLORS.dark,
             }
         }}
@@ -49,11 +56,11 @@ const TabBarNavigator = () => (
             options={{
                 tabBarIcon: ({ focused }) => (
                     <View style={{
-                        padding: 6,
+                        padding: 10,
                         backgroundColor: focused ? COLORS.primary : COLORS.dark,
                         borderRadius: 10,
+                        marginBottom: Platform.OS === 'ios' ? -30 : 0,
                         justifyContent: 'center',
-                        alignItems: 'center'
                     }}>
                         <Image
                             style={{
@@ -73,11 +80,11 @@ const TabBarNavigator = () => (
             options={{
                 tabBarIcon: ({ focused }) => (
                     <View style={{
-                        padding: 6,
+                        padding: 10,
                         backgroundColor: focused ? COLORS.primary : COLORS.dark,
                         borderRadius: 10,
                         justifyContent: 'center',
-                        alignItems: 'center'
+                        marginBottom: Platform.OS === 'ios' ? -30 : 0,
                     }}>
                         <Image
                             style={{
@@ -97,11 +104,11 @@ const TabBarNavigator = () => (
             options={{
                 tabBarIcon: ({ focused }) => (
                     <View style={{
-                        padding: 6,
+                        padding: 10,
                         backgroundColor: focused ? COLORS.primary : COLORS.dark,
                         borderRadius: 10,
                         justifyContent: 'center',
-                        alignItems: 'center'
+                        marginBottom: Platform.OS === 'ios' ? -30 : 0,
                     }}>
                         <Image
                             style={{
@@ -121,11 +128,11 @@ const TabBarNavigator = () => (
             options={{
                 tabBarIcon: ({ focused }) => (
                     <View style={{
-                        padding: 6,
+                        padding: 10,
                         backgroundColor: focused ? COLORS.primary : COLORS.dark,
                         borderRadius: 10,
                         justifyContent: 'center',
-                        alignItems: 'center'
+                        marginBottom: Platform.OS === 'ios' ? -30 : 0,
                     }}>
                         <Image
                             style={{
@@ -145,11 +152,11 @@ const TabBarNavigator = () => (
             options={{
                 tabBarIcon: ({ focused }) => (
                     <View style={{
-                        padding: 6,
+                        padding: 10,
                         backgroundColor: focused ? COLORS.primary : COLORS.dark,
                         borderRadius: 10,
                         justifyContent: 'center',
-                        alignItems: 'center'
+                        marginBottom: Platform.OS === 'ios' ? -30 : 0,
                     }}>
                         <Image
                             style={{
@@ -178,6 +185,11 @@ const RootStackNavigator = () => (
             name={KEY_SCREEN.signIn}
             component={SignIn}
         />
+        {/* SignUp */}
+        <Stack.Screen
+            name={KEY_SCREEN.signUp}
+            component={SignUp}
+        />
         <Stack.Screen
             name={KEY_SCREEN.tabHome}
             component={TabBarNavigator}
@@ -204,22 +216,25 @@ const RootStackNavigator = () => (
                     open: config,
                     close: config,
                 },
-                gestureDirection: 'vertical'
-
+                gestureDirection: 'horizontal'
             }}
         />
         <Stack.Screen
             name={KEY_SCREEN.allShoes}
             component={AllShoes}
         />
-        {/* SignUp */}
-        <Stack.Screen
-            name={KEY_SCREEN.signUp}
-            component={SignUp}
-        />
+
         <Stack.Screen
             name={KEY_SCREEN.detailShoes}
             component={DetailShoes}
+        />
+        <Stack.Screen
+            name={KEY_SCREEN.profile}
+            component={Profile}
+        />
+        <Stack.Screen
+            name={KEY_SCREEN.changePassword}
+            component={ChangePassword}
         />
         <Stack.Screen
             name={KEY_SCREEN.filterShoes}

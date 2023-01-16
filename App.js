@@ -12,6 +12,8 @@ import SignUp from './src/screen/LoginandSignUp/SignUp';
 import Utils from './app/Utils';
 
 
+// Fix lỗi cấu hình thư viện "react-native-snap-carousel" khi chạy App theo link dưới:
+// https://stackoverflow.com/questions/73149910/react-native-0-69-1-i-am-facing-issue-deprecated-react-native-prop-types
 
 export default function App() {
   return (

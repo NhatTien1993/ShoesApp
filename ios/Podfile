@@ -1,12 +1,17 @@
+# Override Firebase SDK Version
+$FirebaseSDKVersion = '10.3.0'
+use_frameworks! :linkage => :static
+$RNFirebaseAsStaticFramework = true
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
 platform :ios, '12.4'
 install! 'cocoapods', :deterministic_uuids => false
-pod 'Firebase', :modular_headers => true
-pod 'FirebaseCoreInternal', :modular_headers => true
-pod 'GoogleUtilities', :modular_headers => true
-pod 'FirebaseCore', :modular_headers => true
+
+# pod 'Firebase', :modular_headers => true
+# pod 'FirebaseCoreInternal', :modular_headers => true
+# pod 'GoogleUtilities', :modular_headers => true
+
 target 'RNapp' do
   config = use_native_modules!
 
@@ -24,7 +29,7 @@ target 'RNapp' do
     #
     # Note that if you have use_frameworks! enabled, Flipper will not work and
     # you should disable the next line.
-    :flipper_configuration => FlipperConfiguration.enabled,
+    # :flipper_configuration => FlipperConfiguration.enabled,
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
