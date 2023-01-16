@@ -47,7 +47,6 @@ export default function FormProfile() {
 
   const nameCom = useRef()
   useEffect(() => {
-    console.log(isUpdate)
     if (isUpdate) {
       nameCom.current?.focus()
     }

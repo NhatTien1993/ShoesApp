@@ -34,9 +34,8 @@ export default memo(function HomePage() {
   const resetOderListStorage = () => {
     dispatch(addOrderList([]))
     saveStorage(userProfile.email, orderListShoes)
-    console.log(orderListShoes)
   }
-  console.log('homePage')
+  console.log('render HomePage')
   return (
     <ScrollView>
       <View style={{ backgroundColor: 'black', width: '100%', height: 250, position: 'absolute', borderBottomLeftRadius: 40, borderBottomRightRadius: 40 }} />
