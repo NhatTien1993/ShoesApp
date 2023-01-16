@@ -31,5 +31,9 @@ function showToast(msg='Checked!', icon=ICONS.iconCheck, time = 2000,type='norma
     navigate(KEY_SCREEN.flashMessage, { msg, icon, time,type, callback })
 
 }
+function showAlert(msg='Checked!', accept = () => {},reject= () => {}) {
+    navigate(KEY_SCREEN.alertMessage, { msg,accept,reject })
 
-export default { _navigator, showToast, navigate, goback }
+}
+
+export default { _navigator, showToast, navigate, goback ,showAlert}

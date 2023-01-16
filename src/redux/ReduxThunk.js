@@ -124,35 +124,54 @@ export const Signin = createAsyncThunk(
    }
 )
 //SignUp:
-export const Signup = createAsyncThunk(
+export const getSignup = createAsyncThunk(
    //Name:
-   'user/signup',
+   'user/getSignup',
    async (params) => {
       //Request URL:
-      let resp = await fetch('https://shop.cyberlearn.vn/api/Users/signup', {
-         //Phương thức:
-         method: 'POST',
-         //Header:
-         header: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-         },
-         //Biến object thành chuỗi:
-         body: JSON.stringify({
-            email: params.email,
-            password: params.password,
-            name: params.name,
-            gender: params.gender,
-            phone: params.phone,
+      try {
+         const resp = await fetch('https://shop.cyberlearn.vn/api/Users/signup', {
+            method: 'POST',
+            headers: {
+               Accept: "application/json",
+               "Content-Type": "application/json-patch+json; charset=utf-8",
+            },
+            body: JSON.stringify({
+               email: params.email,
+               gender: params.gender,
+               name: params.name,
+               password: params.password,
+               phone: params.phone
+            })
          })
-      })
-      // Sau khi lấy xong thì lấy JSON:
-      let json = await resp.json()
-      //Return Json:
-      return json.content.accesToken;
+         const json = await resp.json()
+         return json.message;
+      } catch (error) {
+
+      }
    }
 )
 
+export const getChangePassword = createAsyncThunk(
+   'user/getChangePassword',
+   async (params) => {
+      try{
+      const resp = await fetch(`https://shop.cyberlearn.vn/api/Users/changePassword`, {
+         method: 'POST',
+         headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json; charset=utf-8",
+            Authorization: `Bearer ${params.accessToken}`
+         },
+         body: JSON.stringify(params.data)
+      })
+      const json = await resp.json()
+      return json.statusCode;
+   }catch(error){
+
+   }
+   }
+)
 export const getProfile = createAsyncThunk(
    'user/getProfile',
    async (params) => {
@@ -168,5 +187,26 @@ export const getProfile = createAsyncThunk(
       const { ordersHistory, ...profile } = await json.content
       // console.log(profile.email)
       return profile;
+   }
+)
+export const getUpdateProfile = createAsyncThunk(
+   'user/getUpdateProfile',
+   async (params) => {
+      try {
+         const resp = await fetch(`https://shop.cyberlearn.vn/api/Users/updateProfile`, {
+            method: 'POST',
+            headers: {
+               Accept: "application/json",
+               "Content-Type": "application/json; charset=utf-8",
+               Authorization: `Bearer ${params.token}`
+            },
+            body: JSON.stringify(params.values)
+         })
+         const json = await resp.json()
+         // console.log(json)
+         return json.statusCode;
+      } catch (error) {
+         return undefined
+      }
    }
 )

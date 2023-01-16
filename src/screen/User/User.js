@@ -1,9 +1,10 @@
-import { View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native'
+import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native';
-import { COLORS, ICONS, KEY_SCREEN, IMAGES } from '../../common/Constant';
-import { useDispatch } from 'react-redux';
+import { COLORS, ICONS, KEY_SCREEN, IMAGES, SIZES } from '../../common/Constant';
+import { useDispatch, useSelector } from 'react-redux';
 import { setResetAccessToken } from '../../redux/ReduxSlice';
+import Utils from '../../../app/Utils';
 /**
  * Create Profile:
  * @returns NguyentruongKhoiNguyen
@@ -11,118 +12,124 @@ import { setResetAccessToken } from '../../redux/ReduxSlice';
 
 export default function User() {
     const dispatch = useDispatch()
+    const profile = useSelector((state) => state.redux.userProfile)
     const navigation = useNavigation();
-    const signOut =( )=>{
+    const signOut = () => {
         //Chuyen Trang:
+        dispatch(setResetAccessToken(''))
         navigation.navigate(KEY_SCREEN.signIn)
+
     }
-    const Alert = ()=>{
+    const Alert = () => {
         alert('This function is being developed')
+    }
+    const _userProfile = () => {
+        navigation.navigate(KEY_SCREEN.profile)
+    }
+    const _changePassword = () => {
+        navigation.navigate(KEY_SCREEN.changePassword)
     }
     return (
         <View style={styles.container}>
             {/* Background */}
-            <Image source={IMAGES.backgroundProfile} style={styles.imageBackground}/>
+            <Image source={IMAGES.backgroundProfile} style={styles.imageBackground} />
             {/* InForm Profile */}
             <View style={styles.informProfile}>
                 {/* Picture Profile */}
-                <Image source={IMAGES.profilePic} style={styles.informProfile_Image}/>
+                <Image source={{ uri: profile.avatar }} style={styles.informProfile_Image} />
                 <View style={styles.informProfile_Direction}>
-                    <Text style={styles.informProfile_Direction_Name}>Ng.Tr.Kh.Nguyen</Text>
-                    <Text style={styles.informProfile_Direction_AgeGender}>090123123</Text>
+                    <Text style={styles.informProfile_Direction_Name}>{profile.name}</Text>
+                    <Text style={styles.informProfile_Direction_AgeGender}>{profile.phone}</Text>
                 </View>
             </View>
             {/* Setting */}
-            <TouchableOpacity 
-                style={styles.touchList_Function} 
+            <TouchableOpacity
+                style={styles.touchList_Function}
                 onPress={Alert}
             >
-                <Image source={ICONS.icSetting} style={styles.touchList_Function_Icon}/>
-                <Text style={{fontSize:20}}>Setting</Text>
-            </TouchableOpacity>
-            {/* Notification */}
-            <TouchableOpacity 
-                style={styles.touchList_Function} 
-                onPress={Alert}
-            >
-                <Image source={ICONS.icNotification} style={styles.touchList_Function_Icon}/>
-                <Text style={styles.touchList_Function_Title}>Notification</Text>
+                <Image source={ICONS.icSetting} style={styles.touchList_Function_Icon} />
+                <Text style={{ fontSize: 20 }}>Setting</Text>
             </TouchableOpacity>
             {/* Intro and Guide */}
-            <TouchableOpacity 
-                style={styles.touchList_Function} 
+            <TouchableOpacity
+                style={styles.touchList_Function}
                 onPress={Alert}
             >
-                <Image source={ICONS.icGuide} style={styles.touchList_Function_Icon}/>
+                <Image source={ICONS.icGuide} style={styles.touchList_Function_Icon} />
                 <Text style={styles.touchList_Function_Title}>Intro and Guide</Text>
             </TouchableOpacity>
             {/* Change Profile */}
-            <TouchableOpacity style={styles.touchList_Function}>
-                <Image source={ICONS.icProfile} style={styles.touchList_Function_Icon}/>
-                <Text style={styles.touchList_Function_Title}>Change Profile</Text>
+            <TouchableOpacity
+                onPress={_userProfile}
+                style={styles.touchList_Function}>
+                <Image source={ICONS.icProfile} style={styles.touchList_Function_Icon} />
+                <Text style={styles.touchList_Function_Title}>User Profile</Text>
             </TouchableOpacity>
             {/* Change Password */}
-            <TouchableOpacity style={styles.touchList_Function}>
-                <Image source={ICONS.icLock} style={styles.touchList_Function_Icon}/>
+            <TouchableOpacity 
+                onPress={_changePassword}
+            style={styles.touchList_Function}>
+                <Image source={ICONS.icLock} style={styles.touchList_Function_Icon} />
                 <Text style={styles.touchList_Function_Title}>Change Password</Text>
             </TouchableOpacity>
 
-              {/* Sign out */}
-            <TouchableOpacity style={styles.buttonStyle} 
-                onPress= {signOut}>
+            {/* Sign out */}
+            <TouchableOpacity style={styles.buttonStyle}
+                onPress={signOut}>
                 <Text style={styles.buttonTextStyle}>Sign Out</Text>
             </TouchableOpacity>
         </View>
     );
 }
 const styles = StyleSheet.create({
-    container:{
+    container: {
         flex: 1,
     },
-    imageBackground:{
-        height:150, 
-        width: '100%', 
-        padding:10
+    imageBackground: {
+        height: 150,
+        width: '100%',
+        padding: 10
     },
-    informProfile:{
-        flexDirection:'row',
+    informProfile: {
+        flexDirection: 'row',
+        marginBottom: 15
     },
-    informProfile_Image:{
-        width:140, 
-        height:140, 
-        borderRadius: 100, 
-        marginTop:-60
+    informProfile_Image: {
+        width: SIZES.width(25),
+        height: SIZES.width(25),
+        borderRadius: 100,
+        marginTop: - 50
     },
-    informProfile_Direction:{
-        flexDirection:'column',
-        marginTop:-10, 
-        padding:10
+    informProfile_Direction: {
+        flexDirection: 'column',
+        marginTop: -10,
+        padding: 10
     },
-    informProfile_Direction_Name:{
-        fontSize:25, 
-        fontWeight:'bold',
+    informProfile_Direction_Name: {
+        fontSize: 25,
+        fontWeight: 'bold',
     },
-    informProfile_Direction_AgeGender:{
-        fontSize:15, 
-        color:'grey'
+    informProfile_Direction_AgeGender: {
+        fontSize: 15,
+        color: 'grey'
     },
-    touchList_Function:{
-        alignSelf:'center', 
-        flexDirection:'row', 
-        width:'90%', 
-        padding:15, 
-        paddingBottom:10, 
-        borderRadius:10, 
-        shadowOpacity:10,
-        backgroundColor:'#fff', 
-        marginBottom:5
+    touchList_Function: {
+        alignSelf: 'center',
+        flexDirection: 'row',
+        width: '90%',
+        padding: 15,
+        paddingBottom: 10,
+        borderRadius: 10,
+        shadowOpacity: 10,
+        backgroundColor: '#fff',
+        marginBottom: 10
     },
-    touchList_Function_Icon:{
-        width:30, 
-        height:30
+    touchList_Function_Icon: {
+        width: 30,
+        height: 30
     },
-    touchList_Function_Title:{
-        fontSize:20
+    touchList_Function_Title: {
+        fontSize: 20
     },
     buttonStyle: {
         backgroundColor: 'black',
@@ -137,7 +144,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
         marginBottom: 25,
     },
-      buttonTextStyle: {
+    buttonTextStyle: {
         color: '#FFFFFF',
         paddingVertical: 10,
         fontSize: 16,

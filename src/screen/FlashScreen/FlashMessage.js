@@ -1,18 +1,19 @@
 import { View, Text, Image } from 'react-native'
 import React from 'react'
 import { COLORS } from '../../common/Constant'
-import { useRoute } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 
 import { useEffect } from 'react'
 import Utils from '../../../app/Utils'
 
 const FlashMessage = () => {
   const route = useRoute()
+  const navigation = useNavigation()
   const { msg, icon, callback,time,type} = route.params
   const styleType= type === 'normal'? COLORS.white : type === 'warning' ? 'yellow' : type=== 'error' ? COLORS.orange : COLORS.white
   useEffect(() => {
     const timer = setTimeout(() => {
-      Utils.goback();
+      navigation.goBack();
       callback()
     }, time)
     return () => { clearTimeout(timer) }

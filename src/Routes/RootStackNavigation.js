@@ -15,6 +15,8 @@ import FlashMessage from "../screen/FlashScreen/FlashMessage";
 import { Image, View, TouchableOpacity, Platform } from "react-native";
 import SignUp from "../screen/LoginandSignUp/SignUp";
 import SignIn from "../screen/LoginandSignUp/SignIn";
+import Profile from "../screen/Profile/Profile";
+import ChangePassword from "../screen/User/ChangePassword";
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -22,15 +24,15 @@ const Tab = createBottomTabNavigator()
 const config = {
     animation: 'spring',
     config: {
-      stiffness: 1000,
-      damping: 500,
-      mass: 3,
-      overshootClamping: true,
-      restDisplacementThreshold: 0.01,
-      restSpeedThreshold: 0.01,
+        stiffness: 1000,
+        damping: 500,
+        mass: 3,
+        overshootClamping: true,
+        restDisplacementThreshold: 0.01,
+        restSpeedThreshold: 0.01,
     },
-  };
-  
+};
+
 
 const TabBarNavigator = () => (
     <Tab.Navigator
@@ -57,7 +59,7 @@ const TabBarNavigator = () => (
                         padding: 10,
                         backgroundColor: focused ? COLORS.primary : COLORS.dark,
                         borderRadius: 10,
-                        marginBottom:Platform.OS=== 'ios' ? -30 :0,
+                        marginBottom: Platform.OS === 'ios' ? -30 : 0,
                         justifyContent: 'center',
                     }}>
                         <Image
@@ -82,7 +84,7 @@ const TabBarNavigator = () => (
                         backgroundColor: focused ? COLORS.primary : COLORS.dark,
                         borderRadius: 10,
                         justifyContent: 'center',
-                        marginBottom:Platform.OS=== 'ios' ? -30 :0,
+                        marginBottom: Platform.OS === 'ios' ? -30 : 0,
                     }}>
                         <Image
                             style={{
@@ -106,7 +108,7 @@ const TabBarNavigator = () => (
                         backgroundColor: focused ? COLORS.primary : COLORS.dark,
                         borderRadius: 10,
                         justifyContent: 'center',
-                        marginBottom:Platform.OS=== 'ios' ? -30 :0,
+                        marginBottom: Platform.OS === 'ios' ? -30 : 0,
                     }}>
                         <Image
                             style={{
@@ -130,7 +132,7 @@ const TabBarNavigator = () => (
                         backgroundColor: focused ? COLORS.primary : COLORS.dark,
                         borderRadius: 10,
                         justifyContent: 'center',
-                        marginBottom:Platform.OS=== 'ios' ? -30 :0,
+                        marginBottom: Platform.OS === 'ios' ? -30 : 0,
                     }}>
                         <Image
                             style={{
@@ -154,7 +156,7 @@ const TabBarNavigator = () => (
                         backgroundColor: focused ? COLORS.primary : COLORS.dark,
                         borderRadius: 10,
                         justifyContent: 'center',
-                        marginBottom:Platform.OS=== 'ios' ? -30 :0,
+                        marginBottom: Platform.OS === 'ios' ? -30 : 0,
                     }}>
                         <Image
                             style={{
@@ -183,6 +185,11 @@ const RootStackNavigator = () => (
             name={KEY_SCREEN.signIn}
             component={SignIn}
         />
+        {/* SignUp */}
+        <Stack.Screen
+            name={KEY_SCREEN.signUp}
+            component={SignUp}
+        />
         <Stack.Screen
             name={KEY_SCREEN.tabHome}
             component={TabBarNavigator}
@@ -209,21 +216,25 @@ const RootStackNavigator = () => (
                     open: config,
                     close: config,
                 },
-                gestureDirection:'horizontal'
+                gestureDirection: 'horizontal'
             }}
         />
         <Stack.Screen
             name={KEY_SCREEN.allShoes}
             component={AllShoes}
         />
-        {/* SignUp */}
-        <Stack.Screen
-            name={KEY_SCREEN.signUp}
-            component={SignUp}
-        />
+
         <Stack.Screen
             name={KEY_SCREEN.detailShoes}
             component={DetailShoes}
+        />
+        <Stack.Screen
+            name={KEY_SCREEN.profile}
+            component={Profile}
+        />
+        <Stack.Screen
+            name={KEY_SCREEN.changePassword}
+            component={ChangePassword}
         />
         <Stack.Screen
             name={KEY_SCREEN.filterShoes}

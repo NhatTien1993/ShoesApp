@@ -16,39 +16,38 @@ export default memo(function MyCart() {
     const navigation = useNavigation()
     const orderListShoes = useSelector((state) => state.redux.orderList)
     const orderStatus = useSelector((state) => state.redux.orderStatus)
-    const userProfile = useSelector((state) => state.redux.userProfile)
-    const totalPay = myCartData.reduce((total,item)=>{
+    const profile = useSelector((state) => state.redux.userProfile)
+    const totalPay = myCartData.reduce((total, item) => {
         return total += (item.price * item.quantity)
-    },0)
+    }, 0)
     useEffect(() => {
-        userProfile.email && saveStorage(userProfile.email, orderListShoes)
+        profile.email && saveStorage(profile.email, orderListShoes)
         getOrderData()
     }, [orderListShoes])
     const getOrderData = async () => {
-        const data = await getStorage(userProfile.email)
+        const data = await getStorage(profile.email)
         if (data) {
             setMyCartData(data)
         }
-        
+
 
     }
-    console.log(userProfile.email)
-    useEffect(()=>{
-        if(orderStatus === 200) {
-            Utils.showToast('Đặt hàng thành công', ICONS.iconCartCheckout, 1500,'normal')
+    useEffect(() => {
+        if (orderStatus === 200) {
+            Utils.showToast('Đặt hàng thành công', ICONS.iconCartCheckout, 1500, 'normal')
             dispatch(addOrderList([]))
             dispatch(resetOrderStatus(0))
-        }else if(orderStatus !== 0){
-            Utils.showToast('Đặt hàng thất bại', ICONS.iconCartCheckout, 1500,'error')
+        } else if (orderStatus !== 0) {
+            Utils.showToast('Đặt hàng thất bại', ICONS.iconCartCheckout, 1500, 'error')
             dispatch(resetOrderStatus(0))
-        }     
-    },[orderStatus])
+        }
+    }, [orderStatus])
 
     const handleCheckout = () => {
         if (orderListShoes.length === 0) {
-            Utils.showToast('Vui lòng thêm sản phẩm vào giỏ', ICONS.iconCartCheckout, 1500,'warning')
+            Utils.showToast('Vui lòng thêm sản phẩm vào giỏ', ICONS.iconCartCheckout, 1500, 'warning')
         } else {
-            dispatch(getCheckoutProduct({myCartData,email:userProfile.email}))
+            dispatch(getCheckoutProduct({ myCartData, email: profile.email }))
         }
     }
     const handleDeleteOrderItem = (index) => {
@@ -86,17 +85,30 @@ export default memo(function MyCart() {
             }
 
         })
-
+        const handleNo = () => {
+            const newData = updateOrderList.map((item, index) => {
+                if (item.quantity === 0) {
+                    return {
+                        ...item,
+                        quantity: item.quantity = 1
+                    }
+                } else {
+                    return item
+                }
+            })
+            dispatch(addOrderList(newData))
+        }
+        const handleYes = () => {
+            updateOrderList.splice(id, 1)
+            dispatch(addOrderList(updateOrderList))
+        }
         let isDeleteItem = updateOrderList.every((item) => item.quantity > 0)
         if (!isDeleteItem) {
-            navigation.navigate(KEY_SCREEN.alertMessage, { indexItem: id, data: updateOrderList })
-
+            Utils.showAlert('Bạn chắc chắn muốn bỏ sản phẩm này?',handleYes,handleNo)
+            // navigation.navigate(KEY_SCREEN.alertMessage, { indexItem: id, data: updateOrderList })
         } else {
             dispatch(addOrderList(updateOrderList))
         }
-
-
-
     }
     const ItemCart = ({ item, index }) => {
         return (
