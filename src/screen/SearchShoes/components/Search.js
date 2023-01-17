@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput, View, Image, TouchableOpacity, Keyboard, Platform } from 'react-native'
+import { StyleSheet, Text, TextInput, View, Image, TouchableOpacity, Keyboard, Platform,LogBox } from 'react-native'
 import React, { memo } from 'react'
 import { searchShoes, forusSearch, blurSearch } from '../../../redux/ReduxSlice'
 import { useDispatch, useSelector } from 'react-redux'
@@ -8,7 +8,9 @@ import Utils from '../../../../app/Utils'
 const Search = () => {
     const dispatch = useDispatch()
     const searchValue = useSelector((state) => state.redux.search)
-    // console.log('search')
+    LogBox.ignoreLogs([
+        'Non-serializable values were found in the navigation state',
+    ]);
     return (
         <View>
             <Text style={{ fontSize: 30, fontWeight: 'bold', paddingTop: 10, paddingLeft: 20 }}>{'Find Your\nDream Shoes'}</Text>

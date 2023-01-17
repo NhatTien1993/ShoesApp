@@ -1,12 +1,15 @@
-import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet,LogBox } from 'react-native'
 import React, { memo, useState} from 'react'
-import { COLORS, STYLES, ICONS, SIZES, KEY_TOKEN, KEY_SCREEN } from '../../../common/Constant'
+import { COLORS, STYLES, ICONS, SIZES} from '../../../common/Constant'
 import { useDispatch, useSelector } from 'react-redux'
 import { addOrderList, addOrderItem } from '../../../redux/ReduxSlice'
 import { useEffect } from 'react'
 import { saveStorage } from '../../../common/LocalStorage'
 import Utils from '../../../../app/Utils'
 const Detail = () => {
+    LogBox.ignoreLogs([
+        'Non-serializable values were found in the navigation state',
+    ]);
     const [chooseSize, setChooseSize] = useState(0)
     const [chooseColor, setChooseColor] = useState(0)
     const dispatch = useDispatch()

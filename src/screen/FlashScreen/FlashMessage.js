@@ -4,7 +4,6 @@ import { COLORS } from '../../common/Constant'
 import { useNavigation, useRoute } from '@react-navigation/native'
 
 import { useEffect } from 'react'
-import Utils from '../../../app/Utils'
 
 const FlashMessage = () => {
   const route = useRoute()

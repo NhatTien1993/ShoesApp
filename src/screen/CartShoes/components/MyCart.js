@@ -19,6 +19,7 @@ export default memo(function MyCart() {
     const profile = useSelector((state) => state.redux.userProfile)
     LogBox.ignoreLogs([
         'Non-serializable values were found in the navigation state',
+        'Sending `onAnimatedValueUpdate` with no listeners registered'
     ]);
     const totalPay = myCartData.reduce((total, item) => {
         return total += (item.price * item.quantity)

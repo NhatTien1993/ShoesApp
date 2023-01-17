@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import {
   StyleSheet,
   TextInput,
@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Platform,
+  LogBox
 } from 'react-native';
 import { COLORS, IMAGES, SIZES, ICONS } from '../../common/Constant';
 import { useNavigation } from '@react-navigation/native';
@@ -20,6 +21,9 @@ import Utils from '../../../app/Utils';
 import { resetSignupMessage } from '../../redux/ReduxSlice';
 
 const SignUp = () => {
+  LogBox.ignoreLogs([
+    'Non-serializable values were found in the navigation state',
+  ]);
   const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
   const SignUpSchema = Yup.object().shape({
     email: Yup.string().email('Vui lòng nhập email').required('Email là bắt buộc'),
@@ -182,13 +186,13 @@ const SignUp = () => {
                   width: 24,
                   height: 24,
                   position: 'absolute',
-                  zIndex:5555,
+                  zIndex: 5555,
                   top: 33,
                   left: 27
                 }} source={ICONS.icGenders} />
                 <DropDownPicker
                   listMode='SCROLLVIEW'
-                  containerStyle={{ paddingBottom: 10, paddingTop: 20, justifyContent: 'center', alignItems: 'center', width: SIZES.width(100), paddingHorizontal: 20}}
+                  containerStyle={{ paddingBottom: 10, paddingTop: 20, justifyContent: 'center', alignItems: 'center', width: SIZES.width(100), paddingHorizontal: 20 }}
                   style={{ borderRadius: 30, paddingLeft: 35, borderColor: '#dadae8' }}
                   textStyle={{ fontSize: 16 }}
                   placeholder='Select gender'
@@ -231,7 +235,7 @@ const SignUp = () => {
   </Formik>
 }
 
-export default SignUp;
+export default memo(SignUp);
 
 const styles = StyleSheet.create({
   SectionStyle: {
@@ -240,14 +244,14 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginRight: 20,
     margin: 10,
-    zIndex:-1
+    zIndex: -1
   },
   iconStyle: {
     width: 24,
     height: 24,
     position: 'absolute',
     zIndex: 1,
-    top: Platform.OS === 'ios'? 11 : 15,
+    top: Platform.OS === 'ios' ? 11 : 15,
     left: 8
   },
 

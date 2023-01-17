@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Platform } from 'react-native'
-import React, { useEffect } from 'react'
+import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Platform, LogBox } from 'react-native'
+import React, { useEffect,memo } from 'react'
 import { COLORS, ICONS, IMAGES, SIZES } from '../../common/Constant'
 import * as Yup from 'yup';
 import { Formik } from 'formik';
@@ -11,6 +11,9 @@ import { resetChangePassStatus } from '../../redux/ReduxSlice';
 
 
 const ChangePassword = () => {
+    LogBox.ignoreLogs([
+        'Non-serializable values were found in the navigation state',
+    ]);
     const dispatch = useDispatch()
     const navigation = useNavigation()
     const accessToken = useSelector((state) => state.redux.accessToken)
@@ -28,7 +31,7 @@ const ChangePassword = () => {
     }
     useEffect(() => {
         if (changePassStatus === 200) {
-            Utils.showToast('Cập nhật mật khẩu thành công', ICONS.iconCheck, 1500, 'normal',()=>{navigation.goBack()});
+            Utils.showToast('Cập nhật mật khẩu thành công', ICONS.iconCheck, 1500, 'normal', () => { navigation.goBack() });
             dispatch(resetChangePassStatus(''))
         } else if (resetChangePassStatus === 1) {
             Utils.showToast('Xảy ra lỗi khi cập nhật', ICONS.iconCheck, 1500, 'error');
@@ -104,7 +107,7 @@ const ChangePassword = () => {
     )
 }
 
-export default ChangePassword
+export default memo(ChangePassword)
 
 const styles = StyleSheet.create({
     taskbarView: {
