@@ -1,21 +1,20 @@
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native'
-import React from 'react'
+import React, { memo } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { COLORS, ICONS, KEY_SCREEN, IMAGES, SIZES } from '../../common/Constant';
 import { useDispatch, useSelector } from 'react-redux';
-import { setResetAccessToken } from '../../redux/ReduxSlice';
-import Utils from '../../../app/Utils';
+import { setFacebook, setResetAccessToken } from '../../redux/ReduxSlice';
 /**
  * Create Profile:
  * @returns NguyentruongKhoiNguyen
  */
-
-export default function User() {
+export default memo(function User() {
     const dispatch = useDispatch()
     const profile = useSelector((state) => state.redux.userProfile)
     const navigation = useNavigation();
     const signOut = () => {
         //Chuyen Trang:
+        dispatch(setFacebook(''))
         dispatch(setResetAccessToken(''))
         navigation.navigate(KEY_SCREEN.signIn)
 
@@ -66,9 +65,9 @@ export default function User() {
                 <Text style={styles.touchList_Function_Title}>User Profile</Text>
             </TouchableOpacity>
             {/* Change Password */}
-            <TouchableOpacity 
+            <TouchableOpacity
                 onPress={_changePassword}
-            style={styles.touchList_Function}>
+                style={styles.touchList_Function}>
                 <Image source={ICONS.icLock} style={styles.touchList_Function_Icon} />
                 <Text style={styles.touchList_Function_Title}>Change Password</Text>
             </TouchableOpacity>
@@ -80,7 +79,7 @@ export default function User() {
             </TouchableOpacity>
         </View>
     );
-}
+})
 const styles = StyleSheet.create({
     container: {
         flex: 1,

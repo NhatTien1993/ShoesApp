@@ -1,9 +1,8 @@
 
-import { View, Text, TouchableOpacity, TextInput, ScrollView } from 'react-native'
-import React, { useState } from 'react'
+import { View, Text, TouchableOpacity, TextInput, LogBox } from 'react-native'
+import React, { useState, memo } from 'react'
 import styles from '../styles/styles'
-import { Field, Formik } from 'formik'
-// import { useDispatch } from 'react-redux';
+import { Formik } from 'formik'
 import * as Yup from 'yup';
 import { ICONS } from '../../../common/Constant';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -14,15 +13,19 @@ import { resetUpdateStatus, setFacebook, updateProfile } from '../../../redux/Re
 import Utils from '../../../../app/Utils';
 import { getProfile, getUpdateProfile } from '../../../redux/ReduxThunk';
 
-const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
-const LoginSchema = Yup.object().shape({
-  name: Yup.string().required('Vui lòng nhập tên'),
-  email: Yup.string().required('Vui lòng nhập email').matches(/^([\w.-]+)@(\[(\d{1,3}\.){3}|(?!yahoo\.mail)(([a-zA-Z\d-]+\.)+))([a-zA-Z]{2,4}|\d{1,3})(\]?)$/, 'Sai định dạng và không dùng yahoo.email'),
-  gender: Yup.string().required('Vui lòng chọn giới tính'),
-  phone: Yup.string().required('Vui lòng nhập sđt').matches(phoneRegExp, 'Vui lòng nhập số điện thoại').min(10, 'Số điện thoại tối thiểu 10 số').max(11, 'Số điện thoại tối đa 11 số'),
-})
 
-export default function FormProfile() {
+
+export default memo(function FormProfile() {
+  LogBox.ignoreLogs([
+    'Non-serializable values were found in the navigation state',
+  ]);
+  const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+  const LoginSchema = Yup.object().shape({
+    name: Yup.string().required('Vui lòng nhập tên'),
+    email: Yup.string().required('Vui lòng nhập email').matches(/^([\w.-]+)@(\[(\d{1,3}\.){3}|(?!yahoo\.mail)(([a-zA-Z\d-]+\.)+))([a-zA-Z]{2,4}|\d{1,3})(\]?)$/, 'Sai định dạng và không dùng yahoo.email'),
+    gender: Yup.string().required('Vui lòng chọn giới tính'),
+    phone: Yup.string().required('Vui lòng nhập sđt').matches(phoneRegExp, 'Vui lòng nhập số điện thoại').min(10, 'Số điện thoại tối thiểu 10 số').max(11, 'Số điện thoại tối đa 11 số'),
+  })
   const dispatch = useDispatch()
   const [gender, setGender] = useState('');
   const [open, setOpen] = useState(false);
@@ -151,4 +154,4 @@ export default function FormProfile() {
       }}
     </Formik>
   )
-}
+})

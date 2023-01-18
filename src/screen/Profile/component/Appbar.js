@@ -1,5 +1,5 @@
-import { View, Text, Image, TouchableOpacity,LogBox } from 'react-native'
-import React from 'react'
+import { View, Text, Image, TouchableOpacity, LogBox } from 'react-native'
+import React, { memo } from 'react'
 import styles from '../styles/styles'
 import { useNavigation } from '@react-navigation/native'
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,18 +7,18 @@ import { ICONS, SIZES } from '../../../common/Constant'
 import Utils from '../../../../app/Utils';
 import { updateProfile } from '../../../redux/ReduxSlice';
 
-export default function Appbar() {
+export default memo(function Appbar() {
   const isUpdate = useSelector((state) => state.redux.isUpdate)
   const navigation = useNavigation()
   const dispatch = useDispatch()
-  const handleYes =  () => {
+  const handleYes = () => {
     dispatch(updateProfile(false))
     navigation.goBack()
   }
   LogBox.ignoreLogs([
     'Non-serializable values were found in the navigation state',
   ]);
-  
+
   return (
     <View style={styles.appbar}>
       <TouchableOpacity
@@ -35,4 +35,4 @@ export default function Appbar() {
       <Text style={styles.appbar__title}>{isUpdate ? 'Edit Profile' : 'Profile'}</Text>
     </View>
   )
-}
+})

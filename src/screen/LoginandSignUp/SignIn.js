@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, memo } from 'react'
 import {
   StyleSheet,
   TextInput,
@@ -11,11 +11,11 @@ import {
 import { IMAGES, KEY_SCREEN, SIZES } from '../../common/Constant';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProfile, Signin } from '../../redux/ReduxThunk';
+import { Signin } from '../../redux/ReduxThunk';
 import { resetState, setResetAccessToken } from '../../redux/ReduxSlice';
 import { useEffect } from 'react';
 import * as Yup from 'yup';
-import { Formik, validateYupSchema } from 'formik';
+import { Formik } from 'formik';
 
 
 
@@ -162,7 +162,7 @@ const SignIn = () => {
   );
 }
 
-export default SignIn;
+export default memo(SignIn);
 
 const styles = StyleSheet.create({
   mainBody: {
