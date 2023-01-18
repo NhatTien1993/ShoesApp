@@ -18,7 +18,6 @@ export default memo(function HomePage() {
   const userProfile = useSelector((state) => state.redux.userProfile)
 
   useEffect(() => {
-    console.log(userProfile)
     if (userProfile.email) {
       getLocalStorage()
     }
@@ -26,11 +25,9 @@ export default memo(function HomePage() {
   const getLocalStorage = async () => {
     const data = await getStorage(userProfile.email)
     if (data) {
-      console.log(data)
       dispatch(addOrderList(data))
     }
     else {
-      console.log(`no data`)
       dispatch(addOrderList([]))
       saveStorage(userProfile.email, orderListShoes)
     }
