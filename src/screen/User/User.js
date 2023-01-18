@@ -1,135 +1,137 @@
-import { View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native'
-import React from 'react'
+import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native'
+import React, { memo } from 'react'
 import { useNavigation } from '@react-navigation/native';
-import { COLORS, ICONS, KEY_SCREEN, IMAGES } from '../../common/Constant';
-import { useDispatch } from 'react-redux';
-import { setResetAccessToken } from '../../redux/ReduxSlice';
+import { COLORS, ICONS, KEY_SCREEN, IMAGES, SIZES } from '../../common/Constant';
+import { useDispatch, useSelector } from 'react-redux';
+import { setFacebook, setResetAccessToken } from '../../redux/ReduxSlice';
 /**
  * Create Profile:
  * @returns NguyentruongKhoiNguyen
  */
-
-export default function User() {
+export default memo(function User() {
     const dispatch = useDispatch()
+    const profile = useSelector((state) => state.redux.userProfile)
     const navigation = useNavigation();
-    const signOut =( )=>{
-        
+    const signOut = () => {
         //Chuyen Trang:
+        dispatch(setFacebook(''))
+        dispatch(setResetAccessToken(''))
         navigation.navigate(KEY_SCREEN.signIn)
+
+    }
+    const Alert = () => {
+        alert('This function is being developed')
+    }
+    const _userProfile = () => {
+        navigation.navigate(KEY_SCREEN.profile)
+    }
+    const _changePassword = () => {
+        navigation.navigate(KEY_SCREEN.changePassword)
     }
     return (
         <View style={styles.container}>
-            {/* Title & Description */}
-            <View style={styles.titleDescription}>
-                <Text style={styles.titleDescription_title}>Athletic Shose</Text>
-                <Text style={styles.titleDescription_description}>Ứng Dụng Bán Giày Số 1 Việt Nam </Text>
+            {/* Background */}
+            <Image source={IMAGES.backgroundProfile} style={styles.imageBackground} />
+            {/* InForm Profile */}
+            <View style={styles.informProfile}>
+                {/* Picture Profile */}
+                <Image source={{ uri: profile.avatar }} style={styles.informProfile_Image} />
+                <View style={styles.informProfile_Direction}>
+                    <Text style={styles.informProfile_Direction_Name}>{profile.name}</Text>
+                    <Text style={styles.informProfile_Direction_AgeGender}>{profile.phone}</Text>
+                </View>
             </View>
-
-            {/* Logo Adidas */}
-            <View style={styles.logo}>
-                <Image source={IMAGES.adidasLogo} style={styles.logo_image}/>
-            </View>
-
-            {/* Terms & Condition */}
-
-            <TouchableOpacity style={styles.viewTerms}>
-                <Image source={ICONS.iconTerms} style={styles.viewTerms_icon}/>
-                    <TouchableOpacity style={styles.viewTerms_text}>
-                        <Text style={{fontSize: 20}}>Terms & Conditions</Text>
-                </TouchableOpacity>
-                <Image source={ICONS.iconArrowForward}/>
+            {/* Setting */}
+            <TouchableOpacity
+                style={styles.touchList_Function}
+                onPress={Alert}
+            >
+                <Image source={ICONS.icSetting} style={styles.touchList_Function_Icon} />
+                <Text style={{ fontSize: 20 }}>Setting</Text>
             </TouchableOpacity>
-            
+            {/* Intro and Guide */}
+            <TouchableOpacity
+                style={styles.touchList_Function}
+                onPress={Alert}
+            >
+                <Image source={ICONS.icGuide} style={styles.touchList_Function_Icon} />
+                <Text style={styles.touchList_Function_Title}>Intro and Guide</Text>
+            </TouchableOpacity>
+            {/* Change Profile */}
+            <TouchableOpacity
+                onPress={_userProfile}
+                style={styles.touchList_Function}>
+                <Image source={ICONS.icProfile} style={styles.touchList_Function_Icon} />
+                <Text style={styles.touchList_Function_Title}>User Profile</Text>
+            </TouchableOpacity>
+            {/* Change Password */}
+            <TouchableOpacity
+                onPress={_changePassword}
+                style={styles.touchList_Function}>
+                <Image source={ICONS.icLock} style={styles.touchList_Function_Icon} />
+                <Text style={styles.touchList_Function_Title}>Change Password</Text>
+            </TouchableOpacity>
 
-            {/* Privacy Policy */}
-            <TouchableOpacity style={styles.viewPolicy}>
-                <Image source={ICONS.iconPolicy} style={styles.viewPolicy_icon}/>
-                <TouchableOpacity style={styles.viewPolicy_text}>
-                    <Text style={{fontSize: 20}}>Privacy Policy</Text>
-                </TouchableOpacity>
-                <Image source={ICONS.iconArrowForward}/>
-            </TouchableOpacity>  
-                        
-              <Text style={styles.version}>Version 1.01</Text>
-              {/* Sign out */}
-            <TouchableOpacity style={styles.buttonStyle} 
-                onPress= {signOut}>
+            {/* Sign out */}
+            <TouchableOpacity style={styles.buttonStyle}
+                onPress={signOut}>
                 <Text style={styles.buttonTextStyle}>Sign Out</Text>
             </TouchableOpacity>
         </View>
     );
-}
+})
 const styles = StyleSheet.create({
-    container:{
+    container: {
         flex: 1,
     },
-    titleDescription:{
-        justifyContent:'center', 
-        alignItems:'center', 
-        padding: 30
+    imageBackground: {
+        height: 150,
+        width: '100%',
+        padding: 10
     },
-    titleDescription_title:{
-        fontSize: 30, 
-        fontWeight:'bold'
+    informProfile: {
+        flexDirection: 'row',
+        marginBottom: 15
     },
-    titleDescription_description:{
-        fontSize: 22,
+    informProfile_Image: {
+        width: SIZES.width(25),
+        height: SIZES.width(25),
+        borderRadius: 100,
+        marginTop: - 50
     },
-    logo:{
-        justifyContent:'center', 
-        alignItems:'center'
+    informProfile_Direction: {
+        flexDirection: 'column',
+        marginTop: -10,
+        padding: 10
     },
-    logo_image:{
-        height:150, 
-        width:150,
+    informProfile_Direction_Name: {
+        fontSize: 25,
+        fontWeight: 'bold',
     },
-    textLink:{
-        color: 'blue',
+    informProfile_Direction_AgeGender: {
+        fontSize: 15,
+        color: 'grey'
+    },
+    touchList_Function: {
+        alignSelf: 'center',
+        flexDirection: 'row',
+        width: '90%',
+        padding: 15,
+        paddingBottom: 10,
+        borderRadius: 10,
+        shadowOpacity: 10,
+        backgroundColor: '#fff',
+        marginBottom: 10
+    },
+    touchList_Function_Icon: {
+        width: 30,
+        height: 30
+    },
+    touchList_Function_Title: {
         fontSize: 20
     },
-    viewTerms:{
-        paddingTop: 30,
-        marginBottom: 10,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-around',
-        width: '100%',
-    },
-    viewPolicy:{
-        paddingTop: 30,
-        marginBottom: 12,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-around',
-        width: '100%',
-    },
-    viewTerms_icon:{
-        width:30, 
-        height:30, 
-        alignSelf:'flex-start',
-        height:24, 
-        marginRight:8,
-    },
-    viewPolicy_icon:{
-        width:30, 
-        height:30, 
-        alignSelf:'flex-start',
-        height:24, 
-        marginRight:8,
-    },
-    viewTerms_text:{
-        flexDirection:'column', 
-        alignItems:'center',
-    },
-    viewPolicy_text:{
-        flexDirection:'column', 
-        alignItems:'center',
-    },
-    version:{
-        alignSelf:"center"
-    },
     buttonStyle: {
-        backgroundColor: '#7DE24E',
+        backgroundColor: 'black',
         borderWidth: 0,
         color: '#FFFFFF',
         borderColor: '#7DE24E',
@@ -141,9 +143,17 @@ const styles = StyleSheet.create({
         marginTop: 20,
         marginBottom: 25,
     },
-      buttonTextStyle: {
+    buttonTextStyle: {
         color: '#FFFFFF',
         paddingVertical: 10,
         fontSize: 16,
     },
 })
+
+/**
+ * Image:
+ * +backgroundProfile; profilePic
+ * 
+ * ICONS:
+ * + icSetting, icNotification, icGuide,icProfile,icLock
+ */

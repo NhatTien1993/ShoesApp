@@ -32,6 +32,7 @@ export const COLORS = {
     secondaryBlur : 'rgba(0,0,0,0.7)',
     secondary:'rgb(17,16,20)',
     bcground: 'rgb(242,242,242)',
+    bcground1: 'rgb(230,230,230)',
     dark:'black',
     darkLight:'#aaa',
     white:'#fff',
@@ -55,7 +56,9 @@ export const KEY_SCREEN = {
     signIn: 'signIn',
     signUp:'signUp',
     alertMessage:'AlertMessage',
-    flashMessage:'FlashMessage'
+    flashMessage:'FlashMessage',
+    profile:'Profile',
+    changePassword:'ChangePassword'
 
    
 }
@@ -86,16 +89,29 @@ export const ICONS = {
     iconCheck: require('../../assets/icons/icCheck.png'),
     iconCartCheckout: require('../../assets/icons/icCartCheckout.png'),
     iconUpdate: require('../../assets/icons/icUpdate.png'),
+
+    icSetting: require('../../assets/icons/ic_setting.png'),
+    icNotification: require('../../assets/icons/ic_notifications.png'),
+    icGuide: require('../../assets/icons/guide.png'),
+    icProfile: require('../../assets/icons/profile.png'),
+    icLock: require('../../assets/icons/ic_lock.png'),
+    icGenders: require('../../assets/icons/gender.png'),
+    icPhone: require('../../assets/icons/phone.png'),
+    icLink: require('../../assets/icons/link.png'),
+    icEdit: require('../../assets/icons/edit.png')
 }
 
 export const IMAGES = {
     avatar: require('../../assets/images/avatar.jpeg'),
-        //SignIn
+    //SignIn
     signInLogo: require('../../assets/SignIn.png'),
     //SignUp:
     signUpLogo: require('../../assets/SignUp.jpg'),
     //Logo:
-    adidasLogo: require('../../assets/Adidas_Logo.jpg')
+    adidasLogo: require('../../assets/Adidas_Logo.jpg'),
+
+    backgroundProfile: require('../../assets/backgroundProfile.jpg'),
+    profilePic: require('../../assets/Profile.png'),
 }
 export const STYLES = {
     shadow: {

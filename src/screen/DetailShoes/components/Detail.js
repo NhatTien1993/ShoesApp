@@ -1,18 +1,22 @@
-import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet,LogBox } from 'react-native'
 import React, { memo, useState} from 'react'
-import { COLORS, STYLES, ICONS, SIZES, KEY_TOKEN, KEY_SCREEN } from '../../../common/Constant'
+import { COLORS, STYLES, ICONS, SIZES} from '../../../common/Constant'
 import { useDispatch, useSelector } from 'react-redux'
 import { addOrderList, addOrderItem } from '../../../redux/ReduxSlice'
 import { useEffect } from 'react'
 import { saveStorage } from '../../../common/LocalStorage'
 import Utils from '../../../../app/Utils'
 const Detail = () => {
+    LogBox.ignoreLogs([
+        'Non-serializable values were found in the navigation state',
+    ]);
     const [chooseSize, setChooseSize] = useState(0)
     const [chooseColor, setChooseColor] = useState(0)
     const dispatch = useDispatch()
     const dataShoesDetail = useSelector((state) => state.redux.detailShoesData)
     const orderItemShoes = useSelector((state) => state.redux.orderItem)
     const orderListShoes = useSelector((state) => state.redux.orderList)
+    const userProfile = useSelector((state) => state.redux.userProfile)
     const category = dataShoesDetail?.categories[0]?.category
     const sizes = dataShoesDetail.size
     const colors = [COLORS.dark, COLORS.greylight]
@@ -41,7 +45,7 @@ const Detail = () => {
         }
     }, [orderItemShoes])
     useEffect(() => {
-        saveStorage(KEY_TOKEN.myCart, orderListShoes)
+        userProfile.email && saveStorage(userProfile.email, orderListShoes)
     }, [orderListShoes])
     const handleAddBag = (data) => {
         dispatch(addOrderItem(data))
@@ -86,7 +90,7 @@ const Detail = () => {
             </View>
             <ScrollView
                 horizontal={true}
-                style={{ paddingVertical: 5 }}>
+                style={{ paddingVertical: 5,marginHorizontal:-5 }}>
                 {sizes.map((size, index) => {
                     return (
                         <TouchableOpacity

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput, View, Image, TouchableOpacity, Keyboard } from 'react-native'
+import { StyleSheet, Text, TextInput, View, Image, TouchableOpacity, Keyboard, Platform,LogBox } from 'react-native'
 import React, { memo } from 'react'
 import { searchShoes, forusSearch, blurSearch } from '../../../redux/ReduxSlice'
 import { useDispatch, useSelector } from 'react-redux'
@@ -8,7 +8,9 @@ import Utils from '../../../../app/Utils'
 const Search = () => {
     const dispatch = useDispatch()
     const searchValue = useSelector((state) => state.redux.search)
-    // console.log('search')
+    LogBox.ignoreLogs([
+        'Non-serializable values were found in the navigation state',
+    ]);
     return (
         <View>
             <Text style={{ fontSize: 30, fontWeight: 'bold', paddingTop: 10, paddingLeft: 20 }}>{'Find Your\nDream Shoes'}</Text>
@@ -21,7 +23,7 @@ const Search = () => {
                     onBlur={() => dispatch(blurSearch())}
                     value={searchValue}
                     style={{
-                        backgroundColor: 'white', paddingVertical: 5, fontSize: 16, flex: 1, marginRight: 10,
+                        backgroundColor: 'white', paddingVertical: 8, fontSize: 16, flex: 1, marginRight: 10,
                         paddingRight: 5, paddingLeft: 45, borderRadius: 8
                     }}
                     placeholder='Search Shoes...' />
@@ -42,7 +44,7 @@ const Search = () => {
                     dispatch(blurSearch())
                     Keyboard.dismiss()
                 }}
-                style={{ position: 'absolute', bottom: 15, left: 18 }}>
+                style={{ position: 'absolute', bottom: Platform.OS === 'ios'? 12 : 16, left: 18 }}>
                 <Image
                     style={{
                         width: 30,

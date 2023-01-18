@@ -1,14 +1,17 @@
-import { View, Image, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Image, TouchableOpacity, StyleSheet, LogBox } from 'react-native'
 import React, { memo } from 'react'
-import { ICONS,KEY_SCREEN } from '../../../common/Constant'
+import { ICONS, KEY_SCREEN } from '../../../common/Constant'
 import { useNavigation } from '@react-navigation/native'
 import Utils from '../../../../app/Utils'
 
 export default memo(function Appbar() {
-  const navigation=useNavigation()
+  const navigation = useNavigation()
+  LogBox.ignoreLogs([
+    'Non-serializable values were found in the navigation state',
+  ]);
   return (
     <View style={styles.appbar}>
-      <TouchableOpacity onPress={()=>{navigation.goBack()}}>
+      <TouchableOpacity onPress={() => { navigation.goBack() }}>
         <Image style={[styles.icon, { tintColor: 'white' }]} source={ICONS.icClose} resizeMode='contain' />
       </TouchableOpacity>
       <TouchableOpacity onPress={() => { Utils.showToast('Xin lỗi! Chức năng chưa phát triển.', ICONS.iconUpdate, 2000, 'error') }}>
