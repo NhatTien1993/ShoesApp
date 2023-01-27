@@ -63,9 +63,9 @@ export default styles = StyleSheet.create({
     submit: {
         justifyContent: 'center',
         alignItems: 'center',
-        height: 42,
         backgroundColor: 'black',
-        borderRadius: 26
+        borderRadius: 26,
+        paddingVertical:10
     },
     submit__text: {
         color: 'white',

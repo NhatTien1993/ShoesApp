@@ -117,6 +117,7 @@ const styles = StyleSheet.create({
     informProfile_Direction_Name: {
         fontSize: 25,
         fontWeight: 'bold',
+        paddingTop:5
     },
     informProfile_Direction_AgeGender: {
         fontSize: 15,

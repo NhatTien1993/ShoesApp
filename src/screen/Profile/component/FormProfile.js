@@ -86,7 +86,8 @@ export default memo(function FormProfile() {
           }
         }
         return (
-          <View style={styles.form}>
+
+          <View style={[styles.form]}>
             <View style={{ opacity: isUpdate ? 1 : 0.7 }}>
               <Text style={styles.mLeft8}>Name</Text>
               <TextInput
@@ -150,6 +151,7 @@ export default memo(function FormProfile() {
               <Text style={styles.submit__text}>{isUpdate ? 'SAVE' : 'EDIT PROFILE'}</Text>
             </TouchableOpacity>
           </View>
+
         )
       }}
     </Formik>
