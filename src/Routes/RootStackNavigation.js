@@ -194,7 +194,7 @@ const TabBarNavigator = () => (
 )
 const StackModalNavigator = () => (
     <StackModal.Navigator
-        initialRouteName={KEY_SCREEN.tabHome}
+        initialRouteName={KEY_SCREEN.signIn}
         screenOptions={{
             headerShown: false,
             tabBarShowLabel: false,
