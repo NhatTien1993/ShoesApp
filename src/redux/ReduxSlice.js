@@ -31,8 +31,8 @@ const initialState = {
     isUpdate: false,
     updateProfileStatus: '',
     signupMessage: '',
-    changePassStatus:'',
-    facebook:''
+    changePassStatus: '',
+    facebook: ''
 }
 
 const homePageSlice = createSlice({
@@ -84,7 +84,10 @@ const homePageSlice = createSlice({
         setFacebook: (state, action) => {
             state.facebook = action.payload
         },
-        
+        changeAvatar: (state, action) => {
+            state.userProfile = action.payload
+        },
+
 
 
 
@@ -196,5 +199,5 @@ const homePageSlice = createSlice({
     }
 })
 
-export const { setFacebook,resetChangePassStatus,resetSignupMessage,resetUpdateStatus, updateProfile, resetState, setCategorySelected, setRelateShoes, setResetAccessToken, forusSearch, blurSearch, searchShoes, addOrderItem, addOrderList, resetOrderStatus } = homePageSlice.actions
+export const { changeAvatar, setFacebook, resetChangePassStatus, resetSignupMessage, resetUpdateStatus, updateProfile, resetState, setCategorySelected, setRelateShoes, setResetAccessToken, forusSearch, blurSearch, searchShoes, addOrderItem, addOrderList, resetOrderStatus } = homePageSlice.actions
 export default homePageSlice.reducer

@@ -12,6 +12,7 @@ export default memo(function ListShoes() {
     const categorySelected = useSelector((state) => state.redux.categorySelected)
     const idProductFavorite = useSelector((state) => state.redux.idProductFavorite)
     const accessToken = useSelector((state) => state.redux.accessToken)
+    const isLoadding = useSelector((state) => state.redux.isLoadding)
     const like = useSelector((state) => state.redux.isLike)
     const unlike = useSelector((state) => state.redux.isUnLike)
     const navigation = useNavigation()
@@ -48,8 +49,10 @@ export default memo(function ListShoes() {
                 }}>
                 <TouchableOpacity activeOpacity={1} onPress={() => { handleGoDetailShoes(item.id) }}>
                     <TouchableOpacity
+                        disabled={isLoadding}
                         style={{ width: 50, alignSelf: 'flex-end', justifyContent: 'flex-start', padding: 20, marginTop: -10 }}
-                        onPress={() => {pressLike(item.id)}} >
+                        onPress={() => {
+                            pressLike(item.id)}} >
                         <Image
                             style={{
                                 width: 24,

@@ -8,7 +8,10 @@ import {
   TouchableOpacity,
   ScrollView,
   Platform,
-  LogBox
+  LogBox,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard
 } from 'react-native';
 import { COLORS, IMAGES, SIZES, ICONS } from '../../common/Constant';
 import { useNavigation } from '@react-navigation/native';
@@ -87,152 +90,157 @@ const SignUp = () => {
       }
 
       return (
-        <View style={{ flex: 1, backgroundColor: COLORS.bcground }}>
-          <ScrollView>
-            <View style={styles.appbar}>
-              <TouchableOpacity
-                style={{ paddingHorizontal: 15, paddingVertical: 5 }}
-                onPress={() => { navigation.goBack() }}>
-                <Image style={[styles.icon, { tintColor: COLORS.dark }]} source={ICONS.iconBack} resizeMode='contain' />
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{ paddingHorizontal: 15, paddingVertical: 5 }}
-                onPress={() => { Utils.showToast('Xin lỗi! Chức năng chưa phát triển.', ICONS.iconUpdate, 2000, 'error') }}>
-                <Image style={[styles.icon, { tintColor: COLORS.dark }]} source={ICONS.iconMenu1} resizeMode='contain' />
-              </TouchableOpacity>
-            </View>
-            <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}>
-              {/* Logo Sign Up */}
-              <Image
-                source={IMAGES.signUpLogo}
-                style={{
-                  width: SIZES.height(10),
-                  height: SIZES.height(10),
-                  resizeMode: 'contain',
-                }}
-              />
-            </View>
-            <View>
-              {/* Sign Up with Email */}
-              <View style={styles.SectionStyle}>
-                <Image style={styles.iconStyle} source={ICONS.iconEmail} />
-                <TextInput
-                  autoCapitalize='none'
-                  style={styles.inputStyle}
-                  underlineColorAndroid="#f000"
-                  placeholder="Enter Email"
-                  placeholderTextColor="#8b9cb5"
-                  keyboardType="email-address"
-                  returnKeyType="next"
-                  blurOnSubmit={false}
-                  value={values.email}
-                  onChangeText={handleChange('email')}
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={{ flex: 1 }}>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={{ flex: 1, backgroundColor: COLORS.bcground,paddingBottom:10 }}>
+            <ScrollView >
+              <View style={styles.appbar}>
+                <TouchableOpacity
+                  style={{ paddingHorizontal: 15, paddingVertical: 5 }}
+                  onPress={() => { navigation.goBack() }}>
+                  <Image style={[styles.icon, { tintColor: COLORS.dark }]} source={ICONS.iconBack} resizeMode='contain' />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={{ paddingHorizontal: 15, paddingVertical: 5 }}
+                  onPress={() => { Utils.showToast('Xin lỗi! Chức năng chưa phát triển.', ICONS.iconUpdate, 2000, 'error') }}>
+                  <Image style={[styles.icon, { tintColor: COLORS.dark }]} source={ICONS.iconMenu1} resizeMode='contain' />
+                </TouchableOpacity>
+              </View>
+              <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}>
+                {/* Logo Sign Up */}
+                <Image
+                  source={IMAGES.signUpLogo}
+                  style={{
+                    width: SIZES.height(10),
+                    height: SIZES.height(10),
+                    resizeMode: 'contain',
+                  }}
                 />
               </View>
-              {errors.email && touched.email ? <Text style={{ color: 'red', marginTop: 5, marginLeft: 25, marginTop: -5 }}>{errors.email} </Text> : null}
-              {/* Sign Up Password */}
-              <View style={styles.SectionStyle}>
-                <Image style={styles.iconStyle} source={ICONS.iconPassword} />
-                <TextInput
-                  style={styles.inputStyle}
-                  underlineColorAndroid="#f000"
-                  placeholder="Enter Password"
-                  placeholderTextColor="#8b9cb5"
-                  returnKeyType="next"
-                  secureTextEntry={true}
-                  blurOnSubmit={false}
-                  value={values.password}
-                  autoCapitalize='none'
-                  onChangeText={handleChange('password')}
-                />
-              </View>
-              {errors.password && touched.password ? <Text style={{ color: 'red', marginTop: 5, marginLeft: 25, marginTop: -5 }}>{errors.password} </Text> : null}
-              {/* Sign Up Confirm Password */}
-              <View style={styles.SectionStyle}>
-                <Image style={styles.iconStyle} source={ICONS.iconPassword} />
-                <TextInput
-                  style={styles.inputStyle}
-                  underlineColorAndroid="#f000"
-                  placeholder="Confirm Password"
-                  placeholderTextColor="#8b9cb5"
-                  returnKeyType="next"
-                  secureTextEntry={true}
-                  blurOnSubmit={false}
-                  value={values.confirmpassword}
-                  autoCapitalize='none'
-                  onChangeText={handleChange('confirmpassword')}
-                />
-              </View>
-              {errors.confirmpassword && touched.confirmpassword ? <Text style={{ color: 'red', marginTop: 5, marginLeft: 25, marginTop: -5 }}>{errors.confirmpassword} </Text> : null}
-              {/* Sign Up Name */}
-              <View style={styles.SectionStyle}>
-                <Image style={styles.iconStyle} source={ICONS.icProfile} />
-                <TextInput
-                  style={styles.inputStyle}
-                  underlineColorAndroid="#f000"
-                  placeholder="Enter Name"
-                  placeholderTextColor="#8b9cb5"
-                  returnKeyType="next"
-                  blurOnSubmit={false}
-                  value={values.name}
-                  autoCapitalize='none'
-                  onChangeText={handleChange('name')}
-                />
-              </View>
-              {errors.name && touched.name ? <Text style={{ color: 'red', marginTop: 5, marginLeft: 25, marginTop: -5 }}>{errors.name} </Text> : null}
-              {/* Sign Up with Gender */}
               <View>
-                <Image style={{
-                  width: 24,
-                  height: 24,
-                  position: 'absolute',
-                  zIndex: 5555,
-                  top: 33,
-                  left: 27
-                }} source={ICONS.icGenders} />
-                <DropDownPicker
-                  listMode='SCROLLVIEW'
-                  containerStyle={{ paddingBottom: 10, paddingTop: 20, justifyContent: 'center', alignItems: 'center', width: SIZES.width(100), paddingHorizontal: 20 }}
-                  style={{ borderRadius: 30, paddingLeft: 35, borderColor: '#dadae8' }}
-                  textStyle={{ fontSize: 16 }}
-                  placeholder='Select gender'
-                  open={open}
-                  value={values.gender}
-                  items={items}
-                  setOpen={setOpen}
-                  setValue={setGender}
-                  onChangeValue={handleChange('gender')}
-                />
-              </View>
+                {/* Sign Up with Email */}
+                <View style={styles.SectionStyle}>
+                  <Image style={styles.iconStyle} source={ICONS.iconEmail} />
+                  <TextInput
+                    autoCapitalize='none'
+                    style={styles.inputStyle}
+                    underlineColorAndroid="#f000"
+                    placeholder="Enter Email"
+                    placeholderTextColor="#8b9cb5"
+                    keyboardType="email-address"
+                    returnKeyType="next"
+                    blurOnSubmit={false}
+                    value={values.email}
+                    onChangeText={handleChange('email')}
+                  />
+                </View>
+                {errors.email && touched.email ? <Text style={{ color: 'red', marginTop: 5, marginLeft: 25, marginTop: -5 }}>{errors.email} </Text> : null}
+                {/* Sign Up Password */}
+                <View style={styles.SectionStyle}>
+                  <Image style={styles.iconStyle} source={ICONS.iconPassword} />
+                  <TextInput
+                    style={styles.inputStyle}
+                    underlineColorAndroid="#f000"
+                    placeholder="Enter Password"
+                    placeholderTextColor="#8b9cb5"
+                    returnKeyType="next"
+                    secureTextEntry={true}
+                    blurOnSubmit={false}
+                    value={values.password}
+                    autoCapitalize='none'
+                    onChangeText={handleChange('password')}
+                  />
+                </View>
+                {errors.password && touched.password ? <Text style={{ color: 'red', marginTop: 5, marginLeft: 25, marginTop: -5 }}>{errors.password} </Text> : null}
+                {/* Sign Up Confirm Password */}
+                <View style={styles.SectionStyle}>
+                  <Image style={styles.iconStyle} source={ICONS.iconPassword} />
+                  <TextInput
+                    style={styles.inputStyle}
+                    underlineColorAndroid="#f000"
+                    placeholder="Confirm Password"
+                    placeholderTextColor="#8b9cb5"
+                    returnKeyType="next"
+                    secureTextEntry={true}
+                    blurOnSubmit={false}
+                    value={values.confirmpassword}
+                    autoCapitalize='none'
+                    onChangeText={handleChange('confirmpassword')}
+                  />
+                </View>
+                {errors.confirmpassword && touched.confirmpassword ? <Text style={{ color: 'red', marginTop: 5, marginLeft: 25, marginTop: -5 }}>{errors.confirmpassword} </Text> : null}
+                {/* Sign Up Name */}
+                <View style={styles.SectionStyle}>
+                  <Image style={styles.iconStyle} source={ICONS.icProfile} />
+                  <TextInput
+                    style={styles.inputStyle}
+                    underlineColorAndroid="#f000"
+                    placeholder="Enter Name"
+                    placeholderTextColor="#8b9cb5"
+                    returnKeyType="next"
+                    blurOnSubmit={false}
+                    value={values.name}
+                    autoCapitalize='none'
+                    onChangeText={handleChange('name')}
+                  />
+                </View>
+                {errors.name && touched.name ? <Text style={{ color: 'red', marginTop: 5, marginLeft: 25, marginTop: -5 }}>{errors.name} </Text> : null}
+                {/* Sign Up with Gender */}
+                <View>
+                  <Image style={{
+                    width: 24,
+                    height: 24,
+                    position: 'absolute',
+                    zIndex: 5555,
+                    top: 33,
+                    left: 27
+                  }} source={ICONS.icGenders} />
+                  <DropDownPicker
+                    listMode='SCROLLVIEW'
+                    containerStyle={{ paddingBottom: 10, paddingTop: 20, justifyContent: 'center', alignItems: 'center', width: SIZES.width(100), paddingHorizontal: 20 }}
+                    style={{ borderRadius: 30, paddingLeft: 35, borderColor: '#dadae8' }}
+                    textStyle={{ fontSize: 16 }}
+                    placeholder='Select gender'
+                    open={open}
+                    value={values.gender}
+                    items={items}
+                    setOpen={setOpen}
+                    setValue={setGender}
+                    onChangeValue={handleChange('gender')}
+                  />
+                </View>
 
-              {/* Sign Up with Phone */}
-              <View style={styles.SectionStyle}>
-                <Image style={styles.iconStyle} source={ICONS.icPhone} />
-                <TextInput
-                  style={styles.inputStyle}
-                  keyboardType={'number-pad'}
-                  underlineColorAndroid="#f000"
-                  placeholder='Enter Phone'
-                  placeholderTextColor="#8b9cb5"
-                  autoCapitalize="sentences"
-                  returnKeyType="next"
-                  value={values.phone}
-                  onChangeText={handleChange('phone')}
-                />
+                {/* Sign Up with Phone */}
+                <View style={styles.SectionStyle}>
+                  <Image style={styles.iconStyle} source={ICONS.icPhone} />
+                  <TextInput
+                    style={styles.inputStyle}
+                    keyboardType={'number-pad'}
+                    underlineColorAndroid="#f000"
+                    placeholder='Enter Phone'
+                    placeholderTextColor="#8b9cb5"
+                    autoCapitalize="sentences"
+                    returnKeyType="next"
+                    value={values.phone}
+                    onChangeText={handleChange('phone')}
+                  />
+                </View>
+                {errors.phone && touched.phone ? <Text style={{ color: 'red', marginTop: 5, marginLeft: 25, marginTop: -5 }}>{errors.phone} </Text> : null}
+                {/* Button Register */}
+                <TouchableOpacity
+                  style={styles.buttonStyle}
+                  activeOpacity={0.5} onPress={handleSubmit}>
+                  <Text style={styles.buttonTextStyle}>REGISTER</Text>
+                </TouchableOpacity>
               </View>
-              {errors.phone && touched.phone ? <Text style={{ color: 'red', marginTop: 5, marginLeft: 25, marginTop: -5 }}>{errors.phone} </Text> : null}
-              {/* Button Register */}
-              <TouchableOpacity
-                style={styles.buttonStyle}
-                activeOpacity={0.5} onPress={handleSubmit}>
-                <Text style={styles.buttonTextStyle}>REGISTER</Text>
-              </TouchableOpacity>
+            </ScrollView>
             </View>
-          </ScrollView>
-        </View>
+          </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
       )
     }}
-  </Formik>
+  </Formik >
 }
 
 export default memo(SignUp);

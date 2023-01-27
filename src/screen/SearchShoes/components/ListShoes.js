@@ -2,7 +2,7 @@ import { FlatList, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View }
 import React, { useEffect, memo } from 'react'
 import StaggeredList from '@mindinventory/react-native-stagger-view'
 import { useDispatch, useSelector } from 'react-redux'
-import { ICONS, SIZES, KEY_SCREEN,COLORS } from '../../../common/Constant'
+import { ICONS, SIZES, KEY_SCREEN, COLORS } from '../../../common/Constant'
 import { useNavigation } from '@react-navigation/native'
 import { getProduct, getProductById, getProductFavorite, likeProduct, unlikeProduct } from '../../../redux/ReduxThunk'
 
@@ -12,11 +12,12 @@ const ListShoes = () => {
     const searchValue = useSelector((state) => state.redux.search)
     const idProductFavorite = useSelector((state) => state.redux.idProductFavorite)
     const accessToken = useSelector((state) => state.redux.accessToken)
-    const allShoesData= useSelector((state) => state.redux.allShoes)
+    const allShoesData = useSelector((state) => state.redux.allShoes)
+    const isLoadding = useSelector((state) => state.redux.isLoadding)
     const like = useSelector((state) => state.redux.isLike)
     const unlike = useSelector((state) => state.redux.isUnLike)
     useEffect(() => {
-       dispatch(getProduct())
+        dispatch(getProduct())
     }, [])
     const handleGoDetailShoes = (id) => {
         dispatch(getProductById(id))
@@ -28,26 +29,28 @@ const ListShoes = () => {
     const pressLike = (id) => {
         const isLike = idProductFavorite.includes(id)
         if (isLike) {
-            dispatch(unlikeProduct({id,accessToken}))
+            dispatch(unlikeProduct({ id, accessToken }))
         } else {
-            dispatch(likeProduct({id,accessToken}))
+            dispatch(likeProduct({ id, accessToken }))
         }
     }
     const ItemShoes = ({ item }) => {
         return (
             <TouchableOpacity
-                activeOpacity={1}
-                onPress={() => { handleGoDetailShoes(item.id) }}
+            disabled={isLoadding}
+            onPress={() => { handleGoDetailShoes(item.id) }}
                 style={{ backgroundColor: 'white', width: '90%', padding: 10, borderRadius: 20, marginVertical: 10, marginHorizontal: 10 }}>
                 <TouchableOpacity
                     style={{ width: SIZES.width(8) }}
-                    onPress={() => { pressLike(item.id) }}>
+                    onPress={() => {
+                        pressLike(item.id)
+                    }}>
                     <Image
                         style={{
                             width: 24,
                             height: 24,
                             marginTop: 5,
-                            tintColor: idProductFavorite.includes(item.id) ? COLORS.redLike :COLORS.greylight,
+                            tintColor: idProductFavorite.includes(item.id) ? COLORS.redLike : COLORS.greylight,
                         }}
                         source={ICONS.icFavorite} />
                 </TouchableOpacity>

@@ -58,7 +58,8 @@ export const KEY_SCREEN = {
     alertMessage:'AlertMessage',
     flashMessage:'FlashMessage',
     profile:'Profile',
-    changePassword:'ChangePassword'
+    changePassword:'ChangePassword',
+    changeAvatar:'ChangeAvatar'
 
    
 }
@@ -98,7 +99,8 @@ export const ICONS = {
     icGenders: require('../../assets/icons/gender.png'),
     icPhone: require('../../assets/icons/phone.png'),
     icLink: require('../../assets/icons/link.png'),
-    icEdit: require('../../assets/icons/edit.png')
+    icEdit: require('../../assets/icons/edit.png'),
+    icEditFill: require('../../assets/icons/icEditFill.png')
 }
 
 export const IMAGES = {

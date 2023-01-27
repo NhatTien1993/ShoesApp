@@ -2,7 +2,7 @@ import { View, Text, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { COLORS, ICONS, SIZES } from '../../../common/Constant';
-import { useState, memo,useEffect } from 'react';
+import { useState, memo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProductFavorite, likeProduct, unlikeProduct } from '../../../redux/ReduxThunk'
 
@@ -12,6 +12,7 @@ const SlideShow = () => {
     const dataShoesDetail = useSelector((state) => state.redux.detailShoesData)
     const idProductFavorite = useSelector((state) => state.redux.idProductFavorite)
     const accessToken = useSelector((state) => state.redux.accessToken)
+    const isLoadding = useSelector((state) => state.redux.isLoadding)
     const like = useSelector((state) => state.redux.isLike)
     const unlike = useSelector((state) => state.redux.isUnLike)
     const data = [
@@ -31,9 +32,9 @@ const SlideShow = () => {
     const pressLike = (id) => {
         const isLike = idProductFavorite.includes(id)
         if (isLike) {
-            dispatch(unlikeProduct({id,accessToken}))
+            dispatch(unlikeProduct({ id, accessToken }))
         } else {
-            dispatch(likeProduct({id,accessToken}))
+            dispatch(likeProduct({ id, accessToken }))
         }
     }
     const renderItem = ({ item }) => {
@@ -47,12 +48,13 @@ const SlideShow = () => {
     }
     return (
         <View style={{ flex: 1 }}>
-            <TouchableOpacity 
-            onPress={()=>{pressLike(dataShoesDetail.id)}}
-            style={{width:40,alignSelf:'flex-end',padding:5,marginRight:10}}>
+            <TouchableOpacity
+                disabled={isLoadding}
+                onPress={() => { pressLike(dataShoesDetail.id) }}
+                style={{ width: 40, alignSelf: 'flex-end', padding: 5, marginRight: 10 }}>
                 <Image
                     style={{
-                        width: 24, height: 24, tintColor: idProductFavorite.includes(dataShoesDetail.id) ? COLORS.redLike :COLORS.greylight, alignSelf: 'center',
+                        width: 24, height: 24, tintColor: idProductFavorite.includes(dataShoesDetail.id) ? COLORS.redLike : COLORS.greylight, alignSelf: 'center',
                     }}
                     source={ICONS.icFavorite} />
             </TouchableOpacity>

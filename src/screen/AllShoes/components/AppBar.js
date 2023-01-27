@@ -14,7 +14,10 @@ export default memo(function Appbar() {
       <TouchableOpacity onPress={() => { navigation.goBack() }}>
         <Image style={[styles.icon, { tintColor: 'white' }]} source={ICONS.icClose} resizeMode='contain' />
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => { Utils.showToast('Xin lỗi! Chức năng chưa phát triển.', ICONS.iconUpdate, 2000, 'error') }}>
+      <TouchableOpacity onPress={() => { 
+        navigation.navigate(KEY_SCREEN.filterShoes)
+        // Utils.showToast('Xin lỗi! Chức năng chưa phát triển.', ICONS.iconUpdate, 2000, 'error') 
+        }}>
         <Image style={[styles.icon, { tintColor: 'white' }]} source={ICONS.icTune} resizeMode='contain' />
       </TouchableOpacity>
     </View>

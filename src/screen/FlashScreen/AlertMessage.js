@@ -17,6 +17,7 @@ const AlertMessage = () => {
         accept()
         navigation.goBack()
     }
+    console.log('render AlertMessage')
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', }}>
             <TouchableOpacity

@@ -34,7 +34,7 @@ export const getProductById = createAsyncThunk(
    async (params) => {
       const resp = await axios.get(`https://shop.cyberlearn.vn/api/Product/getbyid?id=${params}`)
       const data = await resp.data
-      // console.log(data.content)
+      
       return data.content
    }
 )
@@ -42,6 +42,7 @@ export const getProductById = createAsyncThunk(
 export const likeProduct = createAsyncThunk(
    'product/likeProduct',
    async (params) => {
+      console.log('like')
       const resp = await axios.get(`https://shop.cyberlearn.vn/api/Users/like?productId=${params.id}`, {
          headers: {
             Accept: "application/json",
@@ -58,6 +59,7 @@ export const likeProduct = createAsyncThunk(
 export const unlikeProduct = createAsyncThunk(
    'product/unlikeProduct',
    async (params) => {
+      console.log('unlike')
       const resp = await axios.get(`https://shop.cyberlearn.vn/api/Users/unlike?productId=${params.id}`, {
          headers: {
             Accept: "application/json",
