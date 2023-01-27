@@ -17,10 +17,12 @@ import SignUp from "../screen/LoginandSignUp/SignUp";
 import SignIn from "../screen/LoginandSignUp/SignIn";
 import Profile from "../screen/Profile/Profile";
 import ChangePassword from "../screen/User/ChangePassword";
+import ChangeAvatar from "../screen/User/ChangeAvatar";
+import { createStackNavigator, TransitionPresets } from "@react-navigation/stack";
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
-
+const StackModal = createStackNavigator()
 const config = {
     animation: 'spring',
     config: {
@@ -32,7 +34,25 @@ const config = {
         restSpeedThreshold: 0.01,
     },
 };
+const config1 = {
+    animationEnabled: true,
+    cardStyleInterpolator: ({ current: { progress } }) => ({
+        cardStyle: {
+            opacity: progress.interpolate({
+                inputRange: [0, 0.5, 0.9, 1],
+                outputRange: [0, 0.25, 0.7, 1],
+            }),
+        },
+        overlayStyle: {
+            opacity: progress.interpolate({
+                inputRange: [0, 1],
+                outputRange: [0, 0.2],
+                extrapolate: 'clamp',
+            }),
+        },
 
+    }),
+}
 
 const TabBarNavigator = () => (
     <Tab.Navigator
@@ -172,13 +192,119 @@ const TabBarNavigator = () => (
         />
     </Tab.Navigator>
 )
+const StackModalNavigator = () => (
+    <StackModal.Navigator
+        initialRouteName={KEY_SCREEN.tabHome}
+        screenOptions={{
+            headerShown: false,
+            tabBarShowLabel: false,
+        }}
+    >
+        {/* SignIn */}
+        <StackModal.Screen
+            name={KEY_SCREEN.signIn}
+            component={SignIn}
+        />
+        {/* SignUp */}
+        <StackModal.Screen
+            name={KEY_SCREEN.signUp}
+            component={SignUp}
+        />
+        <StackModal.Screen
+            name={KEY_SCREEN.tabHome}
+            component={TabBarNavigator}
+        />
+        <StackModal.Screen
+            name={KEY_SCREEN.flashMessage}
+            component={FlashMessage}
+            options={{
+                presentation: 'transparentModal',
+                transitionSpec: {
+                    open: config,
+                    close: config,
+                },
+                gestureDirection: 'vertical'
 
+            }}
+        />
+        <StackModal.Screen
+            presentation=''
+            name={KEY_SCREEN.alertMessage}
+            component={AlertMessage}
+            options={{
+                presentation: 'transparentModal',
+                transitionSpec: {
+                    open: config,
+                    close: config,
+                },
+                gestureDirection: 'horizontal'
+            }}
+        />
+        <StackModal.Screen
+            name={KEY_SCREEN.allShoes}
+            component={AllShoes}
+        />
+
+        <StackModal.Screen
+            name={KEY_SCREEN.detailShoes}
+            component={DetailShoes}
+        />
+        <StackModal.Screen
+            name={KEY_SCREEN.profile}
+            component={Profile}
+        />
+        <StackModal.Screen
+            name={KEY_SCREEN.changePassword}
+            component={ChangePassword}
+        />
+        <StackModal.Screen
+            name={KEY_SCREEN.filterShoes}
+            component={FilterShoes}
+            options={{
+                presentation: 'transparentModal',
+                transitionSpec: {
+                    open: config,
+                    close: config,
+                },
+                gestureDirection: 'vertical'
+
+            }}
+        />
+        <StackModal.Screen
+            name={KEY_SCREEN.changeAvatar}
+            component={ChangeAvatar}
+            options={{
+                presentation: 'transparentModal',
+                animationEnabled: true,
+                cardStyleInterpolator: ({ current: { progress } }) => ({
+                    cardStyle: {
+                        opacity: progress.interpolate({
+                            inputRange: [0, 0.5, 0.9, 1],
+                            outputRange: [0, 0.25, 0.7, 1],
+                        }),
+                    },
+                    overlayStyle: {
+                        opacity: progress.interpolate({
+                            inputRange: [0, 1],
+                            outputRange: [0, 0.5],
+                            extrapolate: 'clamp',
+                        }),
+                    },
+
+                }),
+                ...TransitionPresets.FadeFromBottomAndroid,
+
+            }}
+        />
+    </StackModal.Navigator>
+)
 const RootStackNavigator = () => (
     <Stack.Navigator
         initialRouteName={KEY_SCREEN.signIn}
         screenOptions={{
             headerShown: false,
             tabBarShowLabel: false,
+            ...config1
         }}>
         {/* SignIn */}
         <Stack.Screen
@@ -202,12 +328,11 @@ const RootStackNavigator = () => (
                 transitionSpec: {
                     open: config,
                     close: config,
-                },
-                gestureDirection: 'vertical'
-
+                }
             }}
         />
         <Stack.Screen
+            presentation=''
             name={KEY_SCREEN.alertMessage}
             component={AlertMessage}
             options={{
@@ -249,6 +374,19 @@ const RootStackNavigator = () => (
 
             }}
         />
+        <Stack.Screen
+            name={KEY_SCREEN.changeAvatar}
+            component={ChangeAvatar}
+            options={{
+                presentation: 'transparentModal',
+                transitionSpec: {
+                    open: config,
+                    close: config,
+                },
+                gestureDirection: 'vertical'
+
+            }}
+        />
     </Stack.Navigator>
 )
-export { RootStackNavigator }
+export { StackModalNavigator, RootStackNavigator }

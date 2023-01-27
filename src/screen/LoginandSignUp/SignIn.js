@@ -7,6 +7,8 @@ import {
   Image,
   Keyboard,
   TouchableOpacity,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback
 } from 'react-native';
 import { IMAGES, KEY_SCREEN, SIZES } from '../../common/Constant';
 import { useNavigation } from '@react-navigation/native';
@@ -83,82 +85,86 @@ const SignIn = () => {
       {({ values, handleChange, handleSubmit, errors, resetForm, touched }) => {
         //Xuất ra thử:
         return (
-          <View style={styles.mainBody}>
+            <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+              style={{ flex: 1 }}>
+              <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <View style={styles.mainBody}>
+                  {/* SignIn Logo */}
+                  <View style={{ alignItems: 'center' }}>
+                    <Image
+                      source={IMAGES.signInLogo}
+                      style={{
+                        width: SIZES.width(30),
+                        height: SIZES.height(15),
+                        resizeMode: 'cover',
+                        marginBottom:30
+                      }}
+                    />
+                  </View>
+                  {/* TextField: Email*/}
 
-            {/* SignIn Logo */}
-            <View style={{ alignItems: 'center' }}>
-              <Image
-                source={IMAGES.signInLogo}
-                style={{
-                  width: '50%',
-                  height: 100,
-                  resizeMode: 'contain',
-                  margin: 30,
-                }}
-              />
-            </View>
-            {/* TextField: Email*/}
+                  <TextInput
+                    style={styles.inputStyle}
+                    placeholder="Enter Email"
+                    placeholderTextColor="#8b9cb5"
+                    autoCapitalize="none"
+                    keyboardType="email-address"
+                    returnKeyType="next"
+                    underlineColorAndroid="#f000"
+                    blurOnSubmit={false}
+                    value={values.email}
+                    onChangeText={handleChange('email')}
+                  />
+                  {/* <Text>abcsdsad</Text> */}
+                  {errors.email && touched.email ? <Text style={{ color: 'red', marginTop: -10, marginBottom: 10, marginLeft: 30 }}>{errors.email} </Text> : null}
 
-            <TextInput
-              style={styles.inputStyle}
-              placeholder="Enter Email"
-              placeholderTextColor="#8b9cb5"
-              autoCapitalize="none"
-              keyboardType="email-address"
-              returnKeyType="next"
-              underlineColorAndroid="#f000"
-              blurOnSubmit={false}
-              value={values.email}
-              onChangeText={handleChange('email')}
-            />
-            {/* <Text>abcsdsad</Text> */}
-            {errors.email && touched.email ? <Text style={{ color: 'red', marginTop: -10, marginBottom: 10, marginLeft: 30 }}>{errors.email} </Text> : null}
+                  {/* TextField: Password */}
 
-            {/* TextField: Password */}
-
-            <TextInput
-              ref={_password}
-              style={styles.inputStyle}
-              placeholder="Enter Password" //12345
-              placeholderTextColor="#8b9cb5"
-              keyboardType="default"
-              onSubmitEditing={Keyboard.dismiss}
-              blurOnSubmit={false}
-              secureTextEntry={true}
-              underlineColorAndroid="#f000"
-              returnKeyType="next"
-              value={values.password}
-              onChangeText={handleChange('password')}
-              onBlur={() => {
-                if (accessToken) {
-                  resetForm({
-                    values: {
-                      ...values,
-                      password: ''
+                  <TextInput
+                    ref={_password}
+                    style={styles.inputStyle}
+                    placeholder="Enter Password" //12345
+                    placeholderTextColor="#8b9cb5"
+                    keyboardType="default"
+                    onSubmitEditing={Keyboard.dismiss}
+                    blurOnSubmit={false}
+                    secureTextEntry={true}
+                    underlineColorAndroid="#f000"
+                    returnKeyType="next"
+                    value={values.password}
+                    onChangeText={handleChange('password')}
+                    onBlur={() => {
+                      if (accessToken) {
+                        resetForm({
+                          values: {
+                            ...values,
+                            password: ''
+                          }
+                        })
+                      }
                     }
-                  })
-                }
-              }
-              }
-            />
+                    }
+                  />
 
-            {/* Button SignIn */}
-            <TouchableOpacity
-              onPress={handleSubmit}
-              style={styles.buttonStyle}
-              activeOpacity={0.5}
-            >
-              <Text style={styles.buttonTextStyle}>SIGN IN</Text>
-            </TouchableOpacity>
-            <Text
-              style={styles.registerTextStyle}
-              onPress={() => navigation.navigate(KEY_SCREEN.signUp)}>
-              New Here ? Sign Up
-            </Text>
-          </View>
+                  {/* Button SignIn */}
+                  <TouchableOpacity
+                    onPress={handleSubmit}
+                    style={styles.buttonStyle}
+                    activeOpacity={0.5}
+                  >
+                    <Text style={styles.buttonTextStyle}>SIGN IN</Text>
+                  </TouchableOpacity>
+                  <Text
+                    style={styles.registerTextStyle}
+                    onPress={() => navigation.navigate(KEY_SCREEN.signUp)}>
+                    New Here ? Sign Up
+                  </Text>
+                </View>
+              </TouchableWithoutFeedback>
+            </KeyboardAvoidingView>
         );
       }}
-    </Formik>
+    </Formik >
   );
 }
 
@@ -166,10 +172,9 @@ export default memo(SignIn);
 
 const styles = StyleSheet.create({
   mainBody: {
-    flex: 1,
+    flex:1,
     backgroundColor: 'white',
-    alignContent: 'center',
-    paddingTop: SIZES.height(15)
+    justifyContent:'center'
   },
   SectionStyle: {
     flexDirection: 'row',
@@ -221,3 +226,60 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
 });
+// import React from 'react';
+// import {
+//   View,
+//   KeyboardAvoidingView,
+//   TextInput,
+//   StyleSheet,
+//   Text,
+//   Platform,
+//   TouchableWithoutFeedback,
+//   Button,
+//   Keyboard,
+// } from 'react-native';
+
+// const SignIn = () => {
+//   return (
+//     <KeyboardAvoidingView
+//       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+//       style={styles.container}>
+//       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+//         <View style={styles.inner}>
+//           <Text style={styles.header}>Header</Text>
+//           <TextInput placeholder="Username" style={styles.textInput} />
+//           <View style={styles.btnContainer}>
+//             <Button title="Submit" onPress={() => null} />
+//           </View>
+//         </View>
+//       </TouchableWithoutFeedback>
+//     </KeyboardAvoidingView>
+//   );
+// };
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//   },
+//   inner: {
+//     padding: 24,
+//     flex: 1,
+//     justifyContent: 'space-around',
+//   },
+//   header: {
+//     fontSize: 36,
+//     marginBottom: 48,
+//   },
+//   textInput: {
+//     height: 40,
+//     borderColor: '#000000',
+//     borderBottomWidth: 1,
+//     marginBottom: 36,
+//   },
+//   btnContainer: {
+//     backgroundColor: 'white',
+//     marginTop: 12,
+//   },
+// });
+
+// export default SignIn;

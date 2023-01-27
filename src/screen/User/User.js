@@ -28,6 +28,7 @@ export default memo(function User() {
     const _changePassword = () => {
         navigation.navigate(KEY_SCREEN.changePassword)
     }
+    console.log('render User')
     return (
         <View style={styles.container}>
             {/* Background */}
@@ -35,7 +36,15 @@ export default memo(function User() {
             {/* InForm Profile */}
             <View style={styles.informProfile}>
                 {/* Picture Profile */}
-                <Image source={{ uri: profile.avatar }} style={styles.informProfile_Image} />
+                <View style={{ marginRight: 15, marginLeft: 5 }}>
+                    <Image source={{ uri: profile.avatar }} style={styles.informProfile_Image} />
+
+                    <TouchableOpacity
+                        onPress={() => { navigation.navigate(KEY_SCREEN.changeAvatar) }}
+                        style={{ backgroundColor: 'blue', position: 'absolute', padding: 5, borderRadius: 20, right: 0, bottom: 10 }}>
+                        <Image source={ICONS.icEditFill} style={{ width: 20, height: 20, tintColor: COLORS.white }} />
+                    </TouchableOpacity>
+                </View>
                 <View style={styles.informProfile_Direction}>
                     <Text style={styles.informProfile_Direction_Name}>{profile.name}</Text>
                     <Text style={styles.informProfile_Direction_AgeGender}>{profile.phone}</Text>
@@ -97,7 +106,8 @@ const styles = StyleSheet.create({
         width: SIZES.width(25),
         height: SIZES.width(25),
         borderRadius: 100,
-        marginTop: - 50
+        marginTop: - 50,
+        backgroundColor: '#ccc'
     },
     informProfile_Direction: {
         flexDirection: 'column',
@@ -132,7 +142,6 @@ const styles = StyleSheet.create({
     },
     buttonStyle: {
         backgroundColor: 'black',
-        borderWidth: 0,
         color: '#FFFFFF',
         borderColor: '#7DE24E',
         height: 40,

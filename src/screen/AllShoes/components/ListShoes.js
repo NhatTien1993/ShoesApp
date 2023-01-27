@@ -1,5 +1,5 @@
 import { View, Text, FlatList, TouchableOpacity, Image } from 'react-native'
-import React, { memo,useEffect } from 'react'
+import React, { memo, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import StaggeredList from '@mindinventory/react-native-stagger-view'
 import { ICONS, COLORS, STYLES, SIZES, KEY_SCREEN } from '../../../common/Constant'
@@ -10,6 +10,7 @@ export default memo(function ListShoes() {
   const shoesData = useSelector((state) => state.redux.shoesData)
   const idProductFavorite = useSelector((state) => state.redux.idProductFavorite)
   const accessToken = useSelector((state) => state.redux.accessToken)
+  const isLoadding = useSelector((state) => state.redux.isLoadding)
   const like = useSelector((state) => state.redux.isLike)
   const unlike = useSelector((state) => state.redux.isUnLike)
   const navigation = useNavigation()
@@ -24,9 +25,9 @@ export default memo(function ListShoes() {
   const pressLike = (id) => {
     const isLike = idProductFavorite.includes(id)
     if (isLike) {
-      dispatch(unlikeProduct({id,accessToken}))
+      dispatch(unlikeProduct({ id, accessToken }))
     } else {
-      dispatch(likeProduct({id,accessToken}))
+      dispatch(likeProduct({ id, accessToken }))
     }
   }
   const renderItemShoes = ({ item }) => {
@@ -36,7 +37,8 @@ export default memo(function ListShoes() {
         onPress={() => { handleGoDetailShoes(item.id) }}
         style={{ backgroundColor: 'white', width: '90%', padding: 10, borderRadius: 20, marginVertical: 10, marginHorizontal: 10 }}>
         <TouchableOpacity
-          onPress={() => {pressLike(item.id)}}
+          disabled={isLoadding}
+          onPress={() => { pressLike(item.id) }}
           style={{ width: SIZES.width(8) }}
         >
           <Image
@@ -44,7 +46,7 @@ export default memo(function ListShoes() {
               width: 24,
               height: 24,
               marginTop: 5,
-              tintColor: idProductFavorite.includes(item.id) ? COLORS.redLike :COLORS.greylight,
+              tintColor: idProductFavorite.includes(item.id) ? COLORS.redLike : COLORS.greylight,
             }}
             source={ICONS.icFavorite} />
         </TouchableOpacity>
