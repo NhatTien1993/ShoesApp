@@ -6,6 +6,7 @@ import { COLORS } from '../../common/Constant'
 import FormProfile from './component/FormProfile'
 
 const Profile = () => {
+    console.log('render Profile')
     return (
         <View style={{ flex: 1, backgroundColor: COLORS.bcground1 }}>
             <Appbar />

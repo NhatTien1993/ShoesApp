@@ -6,6 +6,7 @@ import ListShoes from './components/ListShoes'
 import { SIZES } from '../../common/Constant'
 
 export default function AllShoes() {
+    console.log('render AllShoes')
     return (
         <View>
             <View style={{ backgroundColor: 'black', width: '100%', height: 250, position: 'absolute', borderBottomLeftRadius: 40, borderBottomRightRadius: 40 }} />

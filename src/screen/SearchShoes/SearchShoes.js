@@ -5,6 +5,7 @@ import Search from './components/Search'
 import ListShoes from './components/ListShoes'
 
 const SearchShoes = () => {
+    console.log('render Search')
     return (
         <View style={{ flex: 1, backgroundColor: 'rgb(235,234,239)' }}>
             <Header />
