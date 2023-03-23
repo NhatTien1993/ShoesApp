@@ -137,16 +137,24 @@ export default memo(function MyCart() {
                 </View>
                 <View style={{ alignItems: 'center', paddingRight: 10 }}>
                     <TouchableOpacity
-                        onPress={() => { handleDecreQuantity(index, item.quantity) }}
-                        style={{ padding: 3 }}><Image
-                            style={{ width: 20, height: 20, backgroundColor: COLORS.bcground, borderRadius: 5 }}
-                            source={ICONS.iconMinus} /></TouchableOpacity>
-                    <Text style={{ fontWeight: 'bold', color: COLORS.dark, paddingVertical: 5 }}>{item.quantity}</Text>
+                        style={{ padding: 5 }}
+                        onPress={() => { handleDecreQuantity(index) }}>
+                        <View
+
+                            style={{ padding: 3 }}><Image
+                                style={{ width: 20, height: 20, backgroundColor: COLORS.bcground, borderRadius: 5 }}
+                                source={ICONS.iconMinus} /></View>
+                    </TouchableOpacity>
+                    <Text style={{ fontWeight: 'bold', color: COLORS.dark, }}>{item.quantity}</Text>
                     <TouchableOpacity
-                        onPress={() => { handleIncreQuantity(index) }}
-                        style={{ padding: 3 }}><Image
-                            style={{ width: 20, height: 20, backgroundColor: COLORS.dark, borderRadius: 5, tintColor: COLORS.white }}
-                            source={ICONS.iconAdd} /></TouchableOpacity>
+                        style={{ padding: 5 }}
+                        onPress={() => { handleIncreQuantity(index) }}>
+                        <View
+
+                            style={{ padding: 3 }}><Image
+                                style={{ width: 20, height: 20, backgroundColor: COLORS.dark, borderRadius: 5, tintColor: COLORS.white }}
+                                source={ICONS.iconAdd} /></View>
+                    </TouchableOpacity>
                 </View>
             </View>
         )
@@ -180,7 +188,7 @@ export default memo(function MyCart() {
                 }
             </View>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 15 }}>
-                <Text style={{ fontSize: 20, fontWeight: '500' }}>Total</Text>
+                <Text style={{ fontSize: 20, fontWeight: '500', color: COLORS.secondary }}>Total</Text>
                 <Text style={{ fontSize: 24, fontWeight: '500', color: COLORS.dark }}>{`$${totalPay}`}</Text>
             </View>
             <TouchableOpacity

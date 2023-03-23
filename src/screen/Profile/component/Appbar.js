@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity, LogBox } from 'react-native'
+import { View, Text, Image, TouchableOpacity, LogBox, Platform } from 'react-native'
 import React, { memo } from 'react'
 import styles from '../styles/styles'
 import { useNavigation } from '@react-navigation/native'
@@ -22,7 +22,7 @@ export default memo(function Appbar() {
   return (
     <View style={styles.appbar}>
       <TouchableOpacity
-        style={{ padding: 5, marginRight: isUpdate ? SIZES.width(24) : SIZES.width(29), alignItems: 'center', justifyContent: 'center' }}
+        style={{ position: 'absolute', left: 15, top: Platform.OS === 'ios' ? 45 : 15, padding: 5 }}
         onPress={() => {
           if (isUpdate) {
             Utils.showAlert('Chưa lưu dữ liệu!\nBạn có muốn rời khỏi trang này?', handleYes)

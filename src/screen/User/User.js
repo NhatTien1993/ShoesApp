@@ -4,10 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { COLORS, ICONS, KEY_SCREEN, IMAGES, SIZES } from '../../common/Constant';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFacebook, setResetAccessToken } from '../../redux/ReduxSlice';
-/**
- * Create Profile:
- * @returns NguyentruongKhoiNguyen
- */
+
 export default memo(function User() {
     const dispatch = useDispatch()
     const profile = useSelector((state) => state.redux.userProfile)
@@ -56,7 +53,7 @@ export default memo(function User() {
                 onPress={Alert}
             >
                 <Image source={ICONS.icSetting} style={styles.touchList_Function_Icon} />
-                <Text style={{ fontSize: 20 }}>Setting</Text>
+                <Text style={{ fontSize: 20, color: COLORS.primary }}>Setting</Text>
             </TouchableOpacity>
             {/* Intro and Guide */}
             <TouchableOpacity
@@ -117,7 +114,8 @@ const styles = StyleSheet.create({
     informProfile_Direction_Name: {
         fontSize: 25,
         fontWeight: 'bold',
-        paddingTop:5
+        paddingTop: 5,
+        color: COLORS.primary
     },
     informProfile_Direction_AgeGender: {
         fontSize: 15,
@@ -139,7 +137,8 @@ const styles = StyleSheet.create({
         height: 30
     },
     touchList_Function_Title: {
-        fontSize: 20
+        fontSize: 20,
+        color: COLORS.primary
     },
     buttonStyle: {
         backgroundColor: 'black',

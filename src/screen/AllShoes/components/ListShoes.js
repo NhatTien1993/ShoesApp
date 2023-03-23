@@ -39,27 +39,26 @@ export default memo(function ListShoes() {
         <TouchableOpacity
           disabled={isLoadding}
           onPress={() => { pressLike(item.id) }}
-          style={{ width: SIZES.width(8) }}
+          style={{ width: SIZES.width(8), padding: 5 }}
         >
           <Image
             style={{
-              width: 24,
-              height: 24,
-              marginTop: 5,
+              width: 24, height: 24, alignSelf: 'center',
               tintColor: idProductFavorite.includes(item.id) ? COLORS.redLike : COLORS.greylight,
             }}
             source={ICONS.icFavorite} />
         </TouchableOpacity>
         <Image
           style={{
-            width: 130,
-            height: 100,
+            width: SIZES.width(35),
+            minHeight: SIZES.height(13),
+            alignSelf: 'center'
           }}
           source={{
             uri: item.image
           }} />
-        <Text style={{ fontSize: 18, fontWeight: 'bold', paddingBottom: 3, flex: 1 }}>{item.name}</Text>
-        <Text style={{ fontSize: 16, fontWeight: '500', paddingBottom: 5 }}>$ {item.price}</Text>
+        <Text style={{ fontSize: 18, fontWeight: 'bold', paddingBottom: 3, flex: 1, color: COLORS.secondary }}>{item.name}</Text>
+        <Text style={{ fontSize: 16, fontWeight: '500', paddingBottom: 5, color: COLORS.primary }}>$ {item.price}</Text>
       </TouchableOpacity>
     )
   }

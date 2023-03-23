@@ -199,5 +199,6 @@ const homePageSlice = createSlice({
     }
 })
 
-export const { changeAvatar, setFacebook, resetChangePassStatus, resetSignupMessage, resetUpdateStatus, updateProfile, resetState, setCategorySelected, setRelateShoes, setResetAccessToken, forusSearch, blurSearch, searchShoes, addOrderItem, addOrderList, resetOrderStatus } = homePageSlice.actions
+export const { changeAvatar, setFacebook, resetChangePassStatus, resetSignupMessage, resetUpdateStatus, updateProfile, resetState, setCategorySelected, setRelateShoes, setResetAccessToken, forusSearch,
+    blurSearch, searchShoes, addOrderItem, addOrderList, resetOrderStatus } = homePageSlice.actions
 export default homePageSlice.reducer

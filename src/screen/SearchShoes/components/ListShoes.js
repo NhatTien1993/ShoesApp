@@ -37,8 +37,8 @@ const ListShoes = () => {
     const ItemShoes = ({ item }) => {
         return (
             <TouchableOpacity
-            disabled={isLoadding}
-            onPress={() => { handleGoDetailShoes(item.id) }}
+                disabled={isLoadding}
+                onPress={() => { handleGoDetailShoes(item.id) }}
                 style={{ backgroundColor: 'white', width: '90%', padding: 10, borderRadius: 20, marginVertical: 10, marginHorizontal: 10 }}>
                 <TouchableOpacity
                     style={{ width: SIZES.width(8) }}
@@ -58,15 +58,16 @@ const ListShoes = () => {
                 <Image
 
                     style={{
-                        width: 130,
-                        height: 100,
+                        width: SIZES.width(35),
+                        minHeight: SIZES.height(13),
+                        alignSelf: 'center'
                     }}
                     source={{
                         uri: item.image
                     }} />
-                <Text style={{ fontSize: 18, fontWeight: 'bold', paddingBottom: 3, flex: 1 }}>{item.name}</Text>
+                <Text style={{ fontSize: 18, fontWeight: 'bold', paddingBottom: 3, flex: 1, color: COLORS.secondary }}>{item.name}</Text>
                 <Text style={{ color: '#888', paddingBottom: 3 }}>Style shoes</Text>
-                <Text style={{ fontSize: 16, fontWeight: '500', paddingBottom: 5 }}>$ {item.price}</Text>
+                <Text style={{ fontSize: 16, fontWeight: '500', paddingBottom: 5, color: COLORS.primary }}>$ {item.price}</Text>
             </TouchableOpacity>
         )
     }

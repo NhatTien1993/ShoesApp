@@ -1,8 +1,8 @@
-import { StyleSheet, Text, TextInput, View, Image, TouchableOpacity, Keyboard, Platform,LogBox } from 'react-native'
+import { StyleSheet, Text, TextInput, View, Image, TouchableOpacity, Keyboard, Platform, LogBox } from 'react-native'
 import React, { memo } from 'react'
 import { searchShoes, forusSearch, blurSearch } from '../../../redux/ReduxSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import { ICONS } from '../../../common/Constant'
+import { COLORS, ICONS } from '../../../common/Constant'
 import Utils from '../../../../app/Utils'
 
 const Search = () => {
@@ -13,7 +13,7 @@ const Search = () => {
     ]);
     return (
         <View>
-            <Text style={{ fontSize: 30, fontWeight: 'bold', paddingTop: 10, paddingLeft: 20 }}>{'Find Your\nDream Shoes'}</Text>
+            <Text style={{ fontSize: 30, fontWeight: 'bold', paddingTop: 10, paddingLeft: 20, color: COLORS.secondary }}>{'Find Your\nDream Shoes'}</Text>
             <View style={{
                 flexDirection: 'row', marginHorizontal: 10, justifyContent: 'space-between', alignItems: 'center', marginVertical: 10
             }}>
@@ -22,9 +22,10 @@ const Search = () => {
                     onFocus={() => dispatch(forusSearch())} //set redux state isSearch= true
                     onBlur={() => dispatch(blurSearch())}
                     value={searchValue}
+                    placeholderTextColor={COLORS.secondary}
                     style={{
                         backgroundColor: 'white', paddingVertical: 8, fontSize: 16, flex: 1, marginRight: 10,
-                        paddingRight: 5, paddingLeft: 45, borderRadius: 8
+                        paddingRight: 5, paddingLeft: 45, borderRadius: 8, color: COLORS.dark,
                     }}
                     placeholder='Search Shoes...' />
                 <TouchableOpacity
@@ -35,7 +36,7 @@ const Search = () => {
                     }}>
                     <Image
                         resizeMode='cover'
-                        style={styles.icon}
+                        style={{ width: 26, height: 26 }}
                         source={ICONS.iconMenu} />
                 </TouchableOpacity>
             </View>
@@ -44,7 +45,7 @@ const Search = () => {
                     dispatch(blurSearch())
                     Keyboard.dismiss()
                 }}
-                style={{ position: 'absolute', bottom: Platform.OS === 'ios'? 12 : 16, left: 18 }}>
+                style={{ position: 'absolute', bottom: Platform.OS === 'ios' ? 12 : 16, left: 18 }}>
                 <Image
                     style={{
                         width: 30,
