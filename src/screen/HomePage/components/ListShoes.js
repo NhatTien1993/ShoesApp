@@ -18,7 +18,7 @@ export default memo(function ListShoes() {
     const navigation = useNavigation()
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(getProductById(1))      
+        dispatch(getProductById(1))
     }, [])
     const getRelateShoes = (products) => {
         dispatch(setRelateShoes(products))
@@ -34,9 +34,9 @@ export default memo(function ListShoes() {
     const pressLike = (id) => {
         const isLike = idProductFavorite.includes(id)
         if (isLike) {
-            dispatch(unlikeProduct({id,accessToken}))
+            dispatch(unlikeProduct({ id, accessToken }))
         } else {
-            dispatch(likeProduct({id,accessToken}))
+            dispatch(likeProduct({ id, accessToken }))
         }
     }
     const renderItemShoes = ({ item }) => {
@@ -52,12 +52,13 @@ export default memo(function ListShoes() {
                         disabled={isLoadding}
                         style={{ width: 50, alignSelf: 'flex-end', justifyContent: 'flex-start', padding: 20, marginTop: -10 }}
                         onPress={() => {
-                            pressLike(item.id)}} >
+                            pressLike(item.id)
+                        }} >
                         <Image
                             style={{
                                 width: 24,
                                 height: 24,
-                                tintColor: idProductFavorite.includes(item.id) ? COLORS.redLike :COLORS.greylight ,
+                                tintColor: idProductFavorite.includes(item.id) ? COLORS.redLike : COLORS.greylight,
 
                             }}
                             resizeMode='cover'
@@ -65,8 +66,8 @@ export default memo(function ListShoes() {
                     </TouchableOpacity>
                     <Image
                         style={{
-                            width: SIZES.width(55),
-                            height: SIZES.height(15),
+                            width: 230,
+                            minHeight: SIZES.height(18),
                             justifyContent: 'center',
                             alignSelf: 'center',
                             transform: [{ rotateY: '180deg' }]

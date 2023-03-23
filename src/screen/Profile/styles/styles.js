@@ -15,15 +15,15 @@ export default styles = StyleSheet.create({
         height: 16
     },
     appbar: {
-        flexDirection: 'row',
         paddingHorizontal: 15,
         paddingTop: Platform.OS === 'ios' ? 50 : 20,
-        paddingBottom:15,
-        alignItems:'center'
+        paddingBottom: 15,
+        alignItems: 'center'
     },
     appbar__title: {
         fontSize: 20,
         fontWeight: '600',
+        color: COLORS.secondary
     },
     header: {
         justifyContent: 'center',
@@ -53,19 +53,19 @@ export default styles = StyleSheet.create({
         paddingLeft: 16,
         paddingRight: 16,
         width: '100%',
-        backgroundColor:COLORS.white,
+        backgroundColor: COLORS.white,
         borderRadius: 25,
-        fontSize:16,
-        paddingVertical:Platform.OS==='ios'? 14 : 9,
-        borderColor:COLORS.dark,
-        borderWidth:1
+        fontSize: 16,
+        paddingVertical: Platform.OS === 'ios' ? 14 : 9,
+        borderColor: COLORS.dark,
+        borderWidth: 1
     },
     submit: {
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'black',
         borderRadius: 26,
-        paddingVertical:10
+        paddingVertical: 10
     },
     submit__text: {
         color: 'white',
